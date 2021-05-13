@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-Over 10 years of experience of consulting and optimizing user experience, system performance and reliability for more than 150 customers spanning verticals such as finance - retail banking, insurance, public services, aerospace, logistics, hospitality, manufacturing, digital media & entertainment, consumer goods etc.
+I'm a technology consultant with over 10 years of experience of consulting and optimizing user experience, system performance and reliability for more than 150 customers spanning verticals such as finance - retail banking, insurance, public services, aerospace, logistics, hospitality, manufacturing, digital media & entertainment, consumer goods etc.
 
 ### Skills
 * Certified cloud solution architect with good skills in optimizing Windows & UNIX-like operating systems, and is experienced in Python, Go, Java and Javascript.
