@@ -3,8 +3,6 @@ layout: post
 title: Hello World!
 ---
 
-Hello World!
-
 Just setup the blogpost using JekyllNow.
 
 <!---
