@@ -10,11 +10,9 @@ permalink: /about/
 * Certified cloud solution architect with good skills in optimizing Windows & UNIX-like operating systems, and is experienced in Python, Go, Java and Javascript.
 * Experienced in setting up test environments to conduct performance and chaos tests with strong expertise in performance and chaos testing tools - JMeter, Gatling, Akamai CloudTest, Loadrunner; and Gremlin and ChaosToolkit.
 * Experience in setting up observability platforms and designing custom dashboards using the inherent query languages. Skilled in capturing performance metrics and tracing transaction journeys and identifying performance bottlenecks across the stack. Skilled in tools such as Dynatrace, AppDynamics, NewRelic, Prometheus, Grafana etc.
-_____
 
 # Other Contributions
 I get involved in any forum related to resilience engineering, digital user experience and observability. Currently I'm involved in developing SRE course curriculum.
-_____
 
 # 📢 Public Speaking
 ## 🗓 2021
@@ -24,7 +22,6 @@ _____
 ## 🗓 2020
 * [IEEE ICGSE 2020 - Observability Driven Global Continuous Delivery](https://conf.researchr.org/details/icgse-2020/icgse-2020-icgse---industry-talks/1/Observability-Driven-Development-and-Continuous-Delivery)
 * NeotysPAC 2020 - Art of Observability
-_____
 
 # Connect over ☕️! 
 **Email**: [reubenrajan@gmail.com](mailto:reubenrajan@gmail.com)
