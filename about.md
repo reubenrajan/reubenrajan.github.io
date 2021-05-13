@@ -11,12 +11,14 @@ I'm a technology consultant with over 10 years of experience of consulting and o
 * Experienced in setting up test environments to conduct performance and chaos tests with strong expertise in performance and chaos testing tools - JMeter, Gatling, Akamai CloudTest, Loadrunner; and Gremlin and ChaosToolkit.
 * Experience in setting up observability platforms and designing custom dashboards using the inherent query languages. Skilled in capturing performance metrics and tracing transaction journeys and identifying performance bottlenecks across the stack. Skilled in tools such as Dynatrace, AppDynamics, NewRelic, Prometheus, Grafana etc.
 
+### Recent Talks
 I give talks in area of resilience engineering and observability. Involved in developing SRE course curriculum, Digital experience Workshops, speaking engagements (conferences/brown bag sessions) and white papers.
-
-The most recent ones are:
+#### 2021
 * [Conf42: Chaos Engineering 2021 - Role of Quality Engineers in SRE ](https://www.conf42.com/Chaos_Engineering_2021_Reuben_Rajan_George_sre_quality_engineers)
+* Accenture x GovTech Singapore UX Summit 2021 - Need for Speed
+
+#### 2020
 * [IEEE ICGSE 2020 - Observability Driven Global Continuous Delivery](https://conf.researchr.org/details/icgse-2020/icgse-2020-icgse---industry-talks/1/Observability-Driven-Development-and-Continuous-Delivery)
-* Accenture x GovTech Singapore UX Summit 2021 - Speed Matters!
 * NeotysPAC 2020 - Art of Observability
 
 ### Contact me
