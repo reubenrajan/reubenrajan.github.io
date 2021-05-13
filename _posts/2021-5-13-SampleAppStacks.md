@@ -1,6 +1,6 @@
 ---
 layout: post
-title: App Stacks for Proof of Concepts!
+title: App stacks for training & experiments
 ---
 
 Here is a curated list of applications that can be deployed for training & experimentation:
