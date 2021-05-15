@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Hello World!
+tags: getting-started
 ---
 
 Just setup the blogpost using JekyllNow.
