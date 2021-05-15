@@ -3,6 +3,10 @@ layout: default
 ---
 
 <div class="posts">
+  {% if site.tags != "" %}
+    {% include collecttags.html %}
+  {% endif %}
+  
   {% for post in site.posts %}
     <article class="post">
 
