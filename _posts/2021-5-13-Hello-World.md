@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Hello World!
+description: Getting Started
 tags: getting-started
 ---
 
