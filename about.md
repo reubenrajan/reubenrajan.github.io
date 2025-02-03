@@ -15,9 +15,6 @@ permalink: /about/
 I get involved in any forum related to resilience engineering, digital user experience and observability. Currently I'm involved in developing SRE course curriculum.
 
 # 📢 Public Speaking
-## 🗓 2022
-* [Conf42: Chaos Engineering 2021 - Role of Quality Engineers in SRE ](https://www.conf42.com/Chaos_Engineering_2021_Reuben_Rajan_George_sre_quality_engineers)
-* Accenture x GovTech Singapore UX Summit 2021 - Need for Speed
 
 ## 🗓 2021
 * [Conf42: Chaos Engineering 2021 - Role of Quality Engineers in SRE ](https://www.conf42.com/Chaos_Engineering_2021_Reuben_Rajan_George_sre_quality_engineers)
