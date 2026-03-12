@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resilience Test Engineer — Interview Questionnaire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0f14;
+  --bg2: #13161e;
+  --bg3: #1a1e29;
+  --bg4: #20263a;
+  --surface: #1e2332;
+  --surface2: #252b3d;
+  --border: #2e3450;
+  --border2: #3a4160;
+  --text: #e8eaf0;
+  --text2: #9da3bb;
+  --text3: #6b7290;
+  --green: #22c55e;
+  --green-dim: #166534;
+  --amber: #f59e0b;
+  --amber-dim: #92400e;
+  --red: #ef4444;
+  --red-dim: #7f1d1d;
+  --violet: #8b5cf6;
+  --violet-dim: #4c1d95;
+  --violet-soft: rgba(139,92,246,0.15);
+  --green-soft: rgba(34,197,94,0.12);
+  --transition: 0.3s ease;
+
+  --c1: #22c55e;   /* green */
+  --c2: #3b82f6;   /* blue */
+  --c3: #f59e0b;   /* amber */
+  --c4: #ec4899;   /* pink */
+  --c5: #8b5cf6;   /* violet */
+  --c6: #06b6d4;   /* cyan */
+  --c7: #f97316;   /* orange */
+  --c8: #a3e635;   /* lime */
+  --c9: #e879f9;   /* fuchsia */
+}
+
+[data-theme="light"] {
+  --bg: #f0f2f8;
+  --bg2: #e8eaf2;
+  --bg3: #dde0ec;
+  --bg4: #d0d4e8;
+  --surface: #ffffff;
+  --surface2: #f5f6fc;
+  --border: #c8ccde;
+  --border2: #b0b5d0;
+  --text: #111827;
+  --text2: #374151;
+  --text3: #6b7280;
+  --green: #16a34a;
+  --green-dim: #bbf7d0;
+  --amber: #d97706;
+  --amber-dim: #fde68a;
+  --red: #dc2626;
+  --red-dim: #fee2e2;
+  --violet: #7c3aed;
+  --violet-dim: #ede9fe;
+  --violet-soft: rgba(124,58,237,0.1);
+  --green-soft: rgba(22,163,74,0.1);
+  --c1: #16a34a;
+  --c2: #2563eb;
+  --c3: #d97706;
+  --c4: #db2777;
+  --c5: #7c3aed;
+  --c6: #0891b2;
+  --c7: #ea580c;
+  --c8: #65a30d;
+  --c9: #c026d3;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: background var(--transition), color var(--transition);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* HEADER */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0 0;
+}
+
+.header-left { flex: 1; min-width: 0; }
+
+.header-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  transition: color var(--transition);
+}
+
+.header-title span {
+  color: var(--text3);
+  font-weight: 500;
+  font-size: 0.85rem;
+  display: block;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+
+.header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* THEME TOGGLE */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.theme-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text3);
+  letter-spacing: 0.06em;
+}
+
+.toggle-pill {
+  width: 44px;
+  height: 24px;
+  background: var(--bg4);
+  border-radius: 12px;
+  border: 1px solid var(--border2);
+  position: relative;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.toggle-pill::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--text3);
+  top: 2px;
+  left: 3px;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+[data-theme="light"] .toggle-pill::after {
+  transform: translateX(20px);
+  background: var(--c5);
+}
+
+.toggle-icon { font-size: 0.9rem; }
+
+/* SCORE WIDGET */
+.score-widget {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 8px 14px;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.score-ring-wrap {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+}
+
+.score-ring-wrap svg { transform: rotate(-90deg); }
+
+.score-ring-bg { fill: none; stroke: var(--border2); stroke-width: 4; transition: stroke var(--transition); }
+.score-ring-fg { fill: none; stroke-width: 4; stroke-linecap: round; stroke-dasharray: 138; stroke-dashoffset: 138; transition: stroke-dashoffset 0.6s ease, stroke 0.4s ease; }
+
+.score-pct {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text);
+  transition: color var(--transition);
+}
+
+.score-info { display: flex; flex-direction: column; gap: 2px; }
+
+.score-verdict {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: color 0.3s ease;
+}
+
+.score-verdict.pop { animation: verdictPop 0.35s cubic-bezier(0.175,0.885,0.32,1.275); }
+@keyframes verdictPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.score-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text3);
+  letter-spacing: 0.04em;
+}
+
+/* GLOBAL PROGRESS BAR */
+.global-progress {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 12px 0 14px;
+}
+
+.progress-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.progress-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text3);
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.autosave-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.autosave-dot.pulsing { opacity: 1; animation: pulse 1s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.save-status-pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 99px;
+  background: var(--green-soft);
+  color: var(--green);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.save-status-pill.show { opacity: 1; }
+
+.progress-count {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.8rem;
+  color: var(--text2);
+  transition: color var(--transition);
+}
+
+.progress-bar-track {
+  height: 5px;
+  background: var(--bg4);
+  border-radius: 99px;
+  overflow: hidden;
+  transition: background var(--transition);
+}
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--c2), var(--green));
+  border-radius: 99px;
+  transition: width 0.5s ease;
+  width: 0%;
+}
+
+/* SECTION TABS */
+.tabs-outer {
+  position: sticky;
+  top: var(--header-h, 120px);
+  z-index: 90;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.tabs-scroll {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs-scroll::-webkit-scrollbar { display: none; }
+
+.tab-btn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 14px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  color: var(--text3);
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+  position: relative;
+}
+
+.tab-btn.active {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.tab-counter {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  border-radius: 99px;
+  background: var(--bg4);
+  color: var(--text3);
+  transition: background 0.2s, color 0.2s;
+}
+.tab-btn.active .tab-counter { color: var(--text); background: var(--bg3); }
+.tab-btn.complete .tab-counter { background: var(--green-soft); color: var(--green); }
+
+/* MAIN CONTENT */
+.main {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 28px 24px 120px;
+}
+
+.section-panel { display: none; }
+.section-panel.active { display: block; }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+  transition: border-color var(--transition);
+}
+
+.section-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.section-title-wrap { flex: 1; }
+
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+  transition: color var(--transition);
+}
+
+.section-subtitle {
+  font-size: 0.78rem;
+  color: var(--text3);
+  margin-top: 2px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.03em;
+}
+
+.section-progress-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  padding: 4px 10px;
+  border-radius: 99px;
+  flex-shrink: 0;
+}
+
+/* QUESTION CARD */
+.q-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: background var(--transition), border-color var(--transition), box-shadow 0.2s;
+}
+.q-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.15); }
+.q-card.asked { border-color: var(--green); }
+[data-theme="light"] .q-card.asked { border-color: var(--green); }
+
+.q-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  cursor: pointer;
+}
+
+.q-checkbox-wrap { padding-top: 2px; flex-shrink: 0; }
+.q-checkbox {
+  width: 20px; height: 20px;
+  border-radius: 6px;
+  border: 2px solid var(--border2);
+  background: var(--bg3);
+  appearance: none;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.2s, background 0.2s;
+  flex-shrink: 0;
+}
+.q-checkbox:checked {
+  background: var(--green);
+  border-color: var(--green);
+}
+.q-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  top: 3px; left: 6px;
+  width: 5px; height: 9px;
+  border: 2px solid #fff;
+  border-top: none; border-left: none;
+  transform: rotate(45deg);
+}
+
+.q-body { flex: 1; min-width: 0; }
+
+.q-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.q-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text3);
+  letter-spacing: 0.06em;
+}
+
+.q-type-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  padding: 2px 8px;
+  border-radius: 99px;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+}
+.q-type-tag.open { background: rgba(59,130,246,0.15); color: #3b82f6; }
+.q-type-tag.closed { background: rgba(236,72,153,0.12); color: #ec4899; }
+.q-type-tag.mixed { background: rgba(245,158,11,0.12); color: var(--amber); }
+[data-theme="light"] .q-type-tag.open { background: rgba(37,99,235,0.1); color: #2563eb; }
+[data-theme="light"] .q-type-tag.closed { background: rgba(219,39,119,0.1); color: #db2777; }
+[data-theme="light"] .q-type-tag.mixed { background: rgba(217,119,6,0.1); color: #d97706; }
+
+.q-topic-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  padding: 2px 8px;
+  border-radius: 99px;
+  background: var(--bg4);
+  color: var(--text3);
+  letter-spacing: 0.03em;
+}
+
+.q-text {
+  font-size: 0.92rem;
+  color: var(--text);
+  line-height: 1.55;
+  transition: color var(--transition);
+}
+
+.q-expand-btn {
+  margin-left: auto;
+  flex-shrink: 0;
+  padding-top: 2px;
+  color: var(--text3);
+  font-size: 0.75rem;
+  user-select: none;
+  transition: color 0.2s;
+}
+
+.q-body-lower {
+  padding: 0 16px 16px;
+  display: none;
+}
+.q-body-lower.open { display: block; }
+
+/* HINTS TOGGLE */
+.hints-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  user-select: none;
+}
+.hints-toggle-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--violet);
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+.hints-mini-bar-wrap {
+  flex: 1;
+  height: 4px;
+  background: var(--bg4);
+  border-radius: 99px;
+  overflow: hidden;
+  max-width: 80px;
+}
+.hints-mini-bar { height: 100%; background: var(--violet); border-radius: 99px; transition: width 0.3s ease; width: 0%; }
+.hints-mini-count {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text3);
+}
+.hints-chevron { font-size: 0.65rem; color: var(--text3); transition: transform 0.2s; }
+.hints-chevron.open { transform: rotate(180deg); }
+
+.hints-panel { display: none; margin-bottom: 12px; }
+.hints-panel.open { display: block; }
+
+.hint-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  transition: border-color var(--transition);
+}
+.hint-item:last-child { border-bottom: none; }
+
+.hint-cb {
+  width: 16px; height: 16px;
+  border-radius: 4px;
+  border: 2px solid var(--border2);
+  background: var(--bg3);
+  appearance: none;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.hint-cb:checked { background: var(--violet); border-color: var(--violet); }
+.hint-cb:checked::after {
+  content: '';
+  position: absolute;
+  top: 1px; left: 4px;
+  width: 4px; height: 7px;
+  border: 2px solid #fff;
+  border-top: none; border-left: none;
+  transform: rotate(45deg);
+}
+
+.hint-text {
+  font-size: 0.82rem;
+  color: var(--text2);
+  line-height: 1.5;
+  transition: color var(--transition);
+}
+.hint-text b { color: var(--text); font-weight: 600; }
+
+/* NOTES */
+.notes-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text3);
+  letter-spacing: 0.06em;
+  margin-bottom: 5px;
+  display: block;
+}
+.notes-area {
+  width: 100%;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  padding: 10px 12px;
+  resize: vertical;
+  min-height: 70px;
+  outline: none;
+  transition: border-color 0.2s, background var(--transition), color var(--transition);
+}
+.notes-area:focus { border-color: var(--violet); }
+.notes-area::placeholder { color: var(--text3); }
+
+/* BOTTOM TOOLBAR */
+.bottom-toolbar {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 200;
+  display: flex;
+  gap: 10px;
+}
+
+.toolbar-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 18px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+}
+.toolbar-btn:hover { background: var(--bg4); transform: translateY(-2px); }
+.toolbar-btn.primary { background: var(--violet); border-color: var(--violet); color: #fff; }
+.toolbar-btn.primary:hover { background: #7c3aed; }
+
+/* MODAL */
+.modal-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.65);
+  z-index: 300;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(3px);
+}
+.modal-backdrop.open { display: flex; }
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 28px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 80vh;
+  overflow-y: auto;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.modal-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 18px;
+}
+
+.modal-input {
+  width: 100%;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  padding: 10px 14px;
+  outline: none;
+  margin-bottom: 14px;
+  transition: border-color 0.2s;
+}
+.modal-input:focus { border-color: var(--violet); }
+
+.modal-actions { display: flex; gap: 10px; margin-top: 6px; }
+.modal-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  background: var(--bg3);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.modal-btn:hover { background: var(--bg4); }
+.modal-btn.primary { background: var(--violet); border-color: var(--violet); color: #fff; }
+.modal-btn.primary:hover { background: #7c3aed; }
+.modal-btn.danger { background: var(--red-dim); border-color: var(--red); color: var(--red); }
+.modal-btn.danger:hover { background: var(--red); color: #fff; }
+
+.session-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.session-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.session-item:hover { border-color: var(--violet); }
+.session-item-info { flex: 1; min-width: 0; }
+.session-item-name {
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.session-item-ts {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--text3);
+  margin-top: 2px;
+  letter-spacing: 0.03em;
+}
+.session-del-btn {
+  background: none;
+  border: none;
+  color: var(--text3);
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 4px;
+  border-radius: 4px;
+  transition: color 0.2s;
+}
+.session-del-btn:hover { color: var(--red); }
+
+.modal-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 16px 0;
+}
+
+.modal-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--text3);
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  .header-inner { gap: 10px; padding: 12px 0 0; }
+  .header-title { font-size: 1rem; }
+  .main { padding: 16px 14px 110px; }
+  .tabs-scroll { padding: 0 14px; }
+  .bottom-toolbar { bottom: 16px; right: 14px; gap: 8px; }
+  .toolbar-btn { padding: 9px 14px; font-size: 0.78rem; }
+  .score-widget { padding: 7px 10px; }
+  .score-ring-wrap { width: 44px; height: 44px; }
+  .score-pct { font-size: 0.75rem; }
+  .q-header { padding: 12px; }
+  .q-body-lower { padding: 0 12px 12px; }
+}
+
+.visually-hidden { display: none; }
+
+/* Section color utilities */
+.sec-0 { --sc: var(--c1); }
+.sec-1 { --sc: var(--c2); }
+.sec-2 { --sc: var(--c3); }
+.sec-3 { --sc: var(--c4); }
+.sec-4 { --sc: var(--c5); }
+.sec-5 { --sc: var(--c6); }
+.sec-6 { --sc: var(--c7); }
+.sec-7 { --sc: var(--c8); }
+.sec-8 { --sc: var(--c9); }
+
+.section-icon { background: color-mix(in srgb, var(--sc) 15%, transparent); }
+.section-title { color: var(--sc); }
+.tab-btn.active { border-bottom-color: var(--sc); color: var(--sc); }
+.section-progress-badge { background: color-mix(in srgb, var(--sc) 12%, transparent); color: var(--sc); border: 1px solid color-mix(in srgb, var(--sc) 30%, transparent); }
+
+.import-btn-wrap { position: relative; }
+.import-file-input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="appHeader">
+  <div class="header-inner">
+    <div class="header-left">
+      <div class="header-title">
+        Resilience Test Engineer
+        <span>INTERVIEW QUESTIONNAIRE · 9 AREAS · 90 QUESTIONS</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle" onclick="toggleTheme()" role="button" tabindex="0" aria-label="Toggle theme">
+        <span class="toggle-icon">🌙</span>
+        <div class="toggle-pill"></div>
+        <span class="toggle-icon">☀️</span>
+      </div>
+      <div class="score-widget" id="scoreWidget">
+        <div class="score-ring-wrap">
+          <svg width="52" height="52" viewBox="0 0 52 52">
+            <circle class="score-ring-bg" cx="26" cy="26" r="22"/>
+            <circle class="score-ring-fg" id="scoreRingFg" cx="26" cy="26" r="22"/>
+          </svg>
+          <div class="score-pct" id="scorePct">0%</div>
+        </div>
+        <div class="score-info">
+          <div class="score-verdict" id="scoreVerdict">No Hire</div>
+          <div class="score-sub" id="scoreSub">0 / 0 hints</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="global-progress">
+    <div class="progress-meta">
+      <div class="progress-label">
+        <div class="autosave-dot" id="autosaveDot"></div>
+        QUESTIONS ASKED
+        <div class="save-status-pill" id="saveStatusPill">Saved</div>
+      </div>
+      <div class="progress-count" id="globalProgressCount">0 / 90</div>
+    </div>
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="globalProgressBar"></div>
+    </div>
+  </div>
+</header>
+
+<!-- SECTION TABS -->
+<div class="tabs-outer" id="tabsOuter">
+  <div class="tabs-scroll" id="tabsScroll"></div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="main" id="mainContent"></main>
+
+<!-- BOTTOM TOOLBAR -->
+<div class="bottom-toolbar">
+  <button class="toolbar-btn" onclick="openModal('loadModal')">📂 Load</button>
+  <button class="toolbar-btn" onclick="openModal('saveModal')">💾 Save</button>
+  <button class="toolbar-btn primary" onclick="exportTxt()">⬇ Export</button>
+</div>
+
+<!-- SAVE MODAL -->
+<div class="modal-backdrop" id="saveModal">
+  <div class="modal">
+    <div class="modal-title">💾 Save Session</div>
+    <label class="modal-label">SESSION NAME</label>
+    <input class="modal-input" id="saveNameInput" placeholder="e.g. Jane Smith – 11 Mar 2026" type="text">
+    <div id="existingSessionsWrap">
+      <label class="modal-label">EXISTING SESSIONS (click to overwrite)</label>
+      <div class="session-list" id="saveSessionList"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn" onclick="closeModal('saveModal')">Cancel</button>
+      <button class="modal-btn primary" onclick="saveNamedSession()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- LOAD MODAL -->
+<div class="modal-backdrop" id="loadModal">
+  <div class="modal">
+    <div class="modal-title">📂 Load Session</div>
+    <div class="session-list" id="loadSessionList"></div>
+    <hr class="modal-divider">
+    <label class="modal-label">IMPORT FROM FILE</label>
+    <div class="import-btn-wrap">
+      <button class="modal-btn" style="width:100%;margin-bottom:14px">📁 Choose JSON file…</button>
+      <input type="file" accept=".json" class="import-file-input" id="importFileInput" onchange="importSession(event)">
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn" onclick="closeModal('loadModal')">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const SECTIONS = [
+  {
+    id: 'reliability-targets',
+    title: 'Reliability Targets & Metrics',
+    icon: '🎯',
+    topics: ['Recovery Metrics: RTO, RPO','Availability Metrics','Application SLx Metrics: SLA, SLO','Operational Response Metrics: MTTx'],
+    questions: [
+      { type:'open', topic:'Recovery Metrics: RTO, RPO', text:'Can you walk me through how you would establish appropriate RTO and RPO targets for a mission-critical microservices application, and how you would validate them through testing?', hints:['Define <b>RTO (Recovery Time Objective)</b> and <b>RPO (Recovery Point Objective)</b> clearly and distinguish between them','Reference the Azure Well-Architected Framework or AWS Resilience Hub policy setup for benchmarking','Discuss working with business stakeholders to derive <b>acceptable downtime windows</b> and <b>data loss tolerances</b>','Mention chaos/disaster recovery tests to validate whether recovery procedures meet the defined targets','Talk about <b>tiering services</b> by criticality and applying different RTO/RPO per tier','Consider <b>automated runbooks</b> or failover scripts that are timed against the RTO threshold'] },
+      { type:'closed', topic:'Availability Metrics', text:'Does your team currently measure and report on service availability as a percentage (e.g. 99.9% or "three nines"), and if so, what tooling do you use to collect that data?', hints:['Expect a "yes/no" with tool mentions: <b>Datadog</b>, <b>Dynatrace</b>, New Relic, Prometheus','Understanding of <b>nines of availability</b> (99.9% = ~8.7 hrs downtime/yr; 99.99% = ~52 min/yr)','Mention of <b>synthetic monitoring</b> or external uptime checks as opposed to only internal metrics','Reference to <b>SLA reporting dashboards</b> or executive-facing availability scorecards','Distinction between <b>infrastructure availability</b> vs <b>application-level availability</b>'] },
+      { type:'open', topic:'Application SLx Metrics: SLA, SLO', text:'How do you differentiate between SLA, SLO, and SLI in practice, and describe a time you used SLOs to drive a reliability improvement initiative?', hints:['<b>SLI (Service Level Indicator)</b>: measurable metric (latency, error rate)','<b>SLO (Service Level Objective)</b>: internal target; <b>SLA (Service Level Agreement)</b>: contractual commitment','Reference to <b>error budgets</b> as a mechanism to balance reliability with feature velocity','Candidate should cite tools like <b>Datadog SLO dashboards</b> or <b>Dynatrace SLO management</b>','Describe a feedback loop: SLO breach → incident → post-mortem → resilience improvement','Mention <b>burn rate alerts</b> to detect when error budget is being consumed too fast'] },
+      { type:'mixed', topic:'Operational Response Metrics: MTTx', text:'What is your experience tracking MTTR and MTBF, and how have you used these metrics to influence architectural decisions or testing priorities?', hints:['Define <b>MTTR (Mean Time to Recover)</b> and <b>MTBF (Mean Time Between Failures)</b> correctly','Contrast with <b>MTTD (Mean Time to Detect)</b> and <b>MTTI (Mean Time to Investigate)</b>','Describe how increasing MTBF relates to reducing <b>failure frequency</b> through resilience patterns','Decreasing MTTR often requires better <b>runbooks, observability, and automated recovery</b>','Cite real incident data or post-mortem tooling (e.g. <b>PagerDuty</b>, <b>Jira</b> incident tracking)','Mention using MTTx trends to justify chaos engineering investments'] },
+      { type:'open', topic:'Recovery Metrics: RTO, RPO', text:'Describe how you would test whether a system can actually recover within its stated RTO after a regional cloud failure.', hints:['Propose a <b>DR failover drill</b> or <b>tabletop exercise</b> at the application and infrastructure level','Mention using chaos tools like <b>Gremlin</b> or <b>LitmusChaos</b> to simulate region-level failures','Discuss the importance of <b>automated vs manual recovery steps</b> and timing each step individually','Reference <b>runbook validation</b> and ensuring runbooks are up to date and executable under pressure','Mention <b>observability tooling</b> (Datadog/Dynatrace) to measure actual recovery time during drills','Consider <b>pre-production environment parity</b> to ensure DR test results are representative'] },
+      { type:'closed', topic:'Application SLx Metrics: SLA, SLO', text:'Have you ever set up error budget policies that automatically freeze feature releases when an SLO breach occurs, and which tooling enabled this?', hints:['Reference to <b>error budget policies</b> in Datadog, Google SRE practices, or custom pipelines','Integration with <b>CI/CD pipelines</b> (e.g. Jenkins, Harness) to gate deployments on SLO health','Mention <b>Harness Chaos Engineering</b> integration with release pipelines for continuous resilience','Awareness of organisational challenges: engineering culture and buy-in from product teams','<b>Automated alerting</b> when burn rate crosses defined thresholds','Consideration of <b>partial freeze policies</b> — pausing risky releases but allowing hotfixes'] },
+      { type:'open', topic:'Availability Metrics', text:'Walk me through designing a multi-layered availability measurement strategy that covers infrastructure, platform, and business transaction layers.', hints:['<b>Infrastructure layer</b>: host/VM/container availability via infrastructure monitoring','<b>Platform layer</b>: Kubernetes pod health, service mesh metrics, load balancer health checks','<b>Business transaction layer</b>: synthetic monitors simulating real user journeys','Use of <b>OpenTelemetry</b> to unify signal collection across layers','Aggregation into a <b>dashboard-of-dashboards</b> approach with drill-down capability','Reference to <b>Datadog Synthetics</b>, <b>Dynatrace Digital Experience Monitoring</b>, or similar'] },
+      { type:'mixed', topic:'Operational Response Metrics: MTTx', text:'If your team\'s MTTR is consistently high, what diagnostic steps and systemic changes would you recommend to drive it down?', hints:['Improve <b>MTTD</b> first — faster detection means faster recovery start','Invest in <b>context-rich alerting</b> with correlated traces and logs (Datadog, Dynatrace)','Build and test <b>automated runbooks</b> for the most common failure scenarios','<b>Chaos engineering</b> to rehearse failure scenarios and validate recovery procedures','Post-mortem culture to identify <b>systemic bottlenecks</b> in the incident response process','<b>On-call readiness</b>: clear escalation paths, up-to-date docs, and incident templates'] },
+      { type:'closed', topic:'Recovery Metrics: RTO, RPO', text:'Is your organisation\'s current RPO achievable with your existing backup and replication strategy, and how do you verify this?', hints:['Expect candidate to evaluate <b>backup frequency vs RPO target</b> (e.g. hourly backup vs 15-min RPO)','Discussion of <b>continuous replication</b> (e.g. database log shipping, CDC) vs scheduled snapshots','Mention of <b>restore testing</b> — actually restoring from backup and measuring data loss window','Use of <b>chaos experiments</b> to simulate data loss and observe actual recovery point','Reference to <b>multi-AZ replication lag</b> as a factor in achievable RPO','Awareness of <b>cloud provider SLA vs application RPO</b> not always aligning'] },
+      { type:'open', topic:'Application SLx Metrics: SLA, SLO', text:'How would you present reliability metrics and SLO compliance data to both a technical team and a non-technical executive audience?', hints:['<b>Technical audience</b>: granular SLI charts, error budget burn rates, trace/log drill-downs','<b>Executive audience</b>: traffic-light status, business impact framing (revenue risk, user count affected)','Build reusable <b>dashboard templates</b> at different abstraction levels','Reference to <b>Datadog SLO widgets</b> or <b>Dynatrace executive reports</b>','Discuss <b>weekly reliability review cadences</b> and on-call metrics (page load, alert noise)','Emphasise narrative — link metrics to <b>customer outcomes</b>, not just technical numbers'] },
+    ]
+  },
+  {
+    id: 'resilient-architecture',
+    title: 'Resilient Architecture',
+    icon: '🏗️',
+    topics: ['Multi-Region Deployment','Multi-Availability Zone Deployment','Single Points of Failure','Failure Mode and Effect Analysis (FMEA)','System & Component Failure Analysis','Dependency Failure Analysis'],
+    questions: [
+      { type:'open', topic:'Multi-Region Deployment', text:'Describe your approach to designing and testing a multi-region active-active architecture. What are the key failure modes you would validate?', hints:['<b>Active-active multi-region</b>: traffic served from multiple regions simultaneously with no standby','Key failure modes: <b>split-brain</b>, <b>replication lag</b>, <b>cross-region latency spikes</b>, regional outage','Use <b>Gremlin</b> or <b>LitmusChaos</b> to inject region-level network partitions or latency','Validate <b>traffic routing failover</b> using DNS-based or load balancer-level health checks','Test <b>data consistency</b> across regions under partition scenarios (CAP theorem awareness)','Reference to <b>AWS Global Accelerator</b>, <b>Azure Traffic Manager</b>, or similar routing services'] },
+      { type:'closed', topic:'Single Points of Failure', text:'Have you conducted a formal SPOF (Single Point of Failure) analysis for your current system, and what methodology did you use?', hints:['Reference to <b>FMEA (Failure Mode and Effect Analysis)</b> as a structured methodology','Tools: spreadsheet-based FMEA, <b>dependency mapping tools</b>, architecture diagrams','Mention identifying SPOFs at <b>network</b>, <b>compute</b>, <b>data</b>, and <b>third-party dependency</b> layers','Outcome: risk register with <b>likelihood × impact scoring</b> and mitigation backlog','Involvement of <b>architects, developers, and ops</b> in the analysis (not just testers)','Reference to AWS/Azure Well-Architected Review findings on SPOFs'] },
+      { type:'open', topic:'Failure Mode and Effect Analysis (FMEA)', text:'Walk me through how you would facilitate an FMEA workshop for a new microservices system prior to go-live.', hints:['Gather the right stakeholders: <b>architects, developers, SREs, product owners</b>','Define the <b>scope</b>: system boundaries, external dependencies, user journeys in scope','For each component, enumerate: <b>failure mode → effect → severity → likelihood → detectability</b>','Assign <b>Risk Priority Numbers (RPN)</b> = Severity × Occurrence × Detectability','Output: prioritised list of <b>resilience experiments</b> and architectural mitigations','Feed results directly into <b>chaos experiment backlog</b> in LitmusChaos or Gremlin'] },
+      { type:'mixed', topic:'Dependency Failure Analysis', text:'How do you identify and test upstream and downstream dependency failures, and what patterns do you put in place to prevent cascade failures?', hints:['Map dependencies using <b>service dependency graphs</b> (Datadog Service Map, Dynatrace SmartScape)','Implement <b>circuit breakers</b> (e.g. Resilience4j, Istio) to break cascade paths','Use <b>bulkheads</b> to isolate failures to a single pool without affecting others','Test with chaos: inject <b>latency</b> and <b>errors</b> on downstream dependencies using Gremlin','Validate <b>timeout and retry configurations</b> are consistent and avoid thundering herd','Reference <b>Netflix Hystrix</b> or <b>Polly</b> for .NET as prior art on dependency resilience'] },
+      { type:'open', topic:'Multi-Availability Zone Deployment', text:'Explain how you would test that your application correctly handles an Availability Zone failure without manual intervention.', hints:['Use chaos tools to simulate <b>AZ-level outage</b>: drain all pods/instances in one AZ','Validate <b>auto-scaling group</b> or Kubernetes scheduler redistributes workload to surviving AZs','Check that <b>load balancer health checks</b> correctly route away from affected AZ within target time','Verify <b>database replicas</b> in other AZs are promoted or serving reads correctly','Measure actual <b>recovery time</b> and compare to RTO target','Ensure <b>stateful services</b> (caches, queues) also have AZ redundancy and are tested'] },
+      { type:'closed', topic:'System & Component Failure Analysis', text:'Do you use automated tooling to continuously scan your architecture for new SPOFs introduced through code or infrastructure changes?', hints:['Reference to <b>architecture fitness functions</b> (e.g. ArchUnit, Spectral, custom CI checks)','Use of <b>infrastructure-as-code linting</b> (Checkov, Terrascan) for resilience anti-patterns','Integration with <b>CI/CD pipelines</b> to gate deployments on architectural compliance','Mention <b>AWS Resilience Hub</b> or <b>Azure Advisor</b> continuous assessment','Runtime dependency analysis via <b>Datadog APM</b> or <b>Dynatrace topology maps</b>','Awareness of <b>drift detection</b> between declared and actual infrastructure state'] },
+      { type:'open', topic:'Dependency Failure Analysis', text:'Describe a real scenario where a dependency failure caused an unexpected outage, and how you improved resilience afterwards.', hints:['Clear <b>timeline of failure</b>: detection → diagnosis → mitigation → resolution','Root cause: specific dependency type (DNS, database, third-party API, message broker)','Short-term fix vs long-term structural change (<b>circuit breaker, fallback, timeout</b>)','New <b>chaos experiment</b> added to continuously validate the fix holds','Updated <b>runbook or playbook</b> reflecting the learned failure mode','Post-mortem shared with wider engineering org to prevent recurrence elsewhere'] },
+      { type:'mixed', topic:'Multi-Region Deployment', text:'What are the trade-offs between active-active and active-passive multi-region strategies, and how does your testing approach differ for each?', hints:['<b>Active-active</b>: better RTO, more complex data consistency, higher cost, harder to test','<b>Active-passive</b>: simpler, lower cost, worse RTO, requires failover trigger mechanism','Testing active-active: continuous traffic, chaos injections, <b>consistency validation under load</b>','Testing active-passive: scheduled <b>DR drills</b>, failover timing, data delta measurement','Use <b>Gremlin</b> or LitmusChaos for both, but with different experiment designs','Discuss <b>pilot light</b> and <b>warm standby</b> as intermediate strategies with different test needs'] },
+      { type:'closed', topic:'Failure Mode and Effect Analysis (FMEA)', text:'Is FMEA or equivalent failure analysis integrated into your team\'s standard pre-release process, and who owns it?', hints:['Ownership: often <b>SRE, platform team, or resilience engineers</b> in collaboration with dev teams','Integration: typically part of <b>design review, architecture review board, or pre-release checklist</b>','Tooling: Confluence templates, Jira epics, <b>risk matrices</b>, or dedicated reliability platforms','Frequency: one-off at design time vs <b>continuous re-evaluation</b> as system evolves','Challenges: keeping FMEA artefacts <b>up to date</b> as microservices change rapidly','Maturity indicator: candidate can cite a specific <b>failure mode caught</b> during FMEA review'] },
+      { type:'open', topic:'Single Points of Failure', text:'How would you prioritise which identified SPOFs to address first, given limited engineering bandwidth?', hints:['Use <b>RPN scoring</b> (Severity × Occurrence × Detectability) to rank SPOFs objectively','Consider <b>blast radius</b>: how many users or services are affected if this SPOF fails','Factor in <b>detection capability</b>: SPOFs that are invisible until failure are highest priority','Align with <b>SLO targets</b>: SPOFs on the critical path of highest-priority SLOs first','Quick wins: SPOFs addressable through <b>configuration changes</b> vs major re-architecture','Communicate prioritisation rationale using <b>business impact language</b> to leadership'] },
+    ]
+  },
+  {
+    id: 'service-capacity',
+    title: 'Service & Capacity Availability',
+    icon: '📊',
+    topics: ['Capacity Modeling','Typical Business Workloads (Usage Pattern)','Cloud Availability (Region & AZ)','Cloud Service Limits','Potential Cloud Migration'],
+    questions: [
+      { type:'open', topic:'Capacity Modeling', text:'How do you build a capacity model for a system that must handle unpredictable peak loads, and how do you test it?', hints:['Define <b>baseline capacity</b> from historical usage patterns (P50, P95, P99 traffic)','Add <b>headroom factor</b> (e.g. 30–50%) above P99 to absorb unexpected spikes','Use <b>load testing</b> (k6, Gatling, JMeter) to validate capacity under peak and beyond-peak load','Model <b>auto-scaling behaviour</b>: scale-out trigger, scale-in delay, and warm-up time','Test <b>cold start scenarios</b> — what happens if the system scales from 0 with sudden traffic?','Reference to <b>cloud provider capacity limits</b> (vCPU quotas, pod limits, concurrency caps)'] },
+      { type:'closed', topic:'Typical Business Workloads (Usage Pattern)', text:'Do you have defined load profiles (e.g. daily peaks, weekly seasonality, end-of-month batch) documented and used in your performance test suites?', hints:['Evidence of <b>workload modelling</b>: time-series analysis of production traffic patterns','Reference to tools like <b>Grafana</b>, <b>Datadog APM</b>, or Dynatrace for traffic trend analysis','Distinct <b>test scenarios</b> for normal load, peak load, ramp-up, and soak conditions','Mention of <b>batch workload isolation</b> — ensuring batch doesn\'t starve online transactions','Synthetic load generation tools calibrated to <b>real user journey distributions</b>','Awareness of business calendar events (e.g. Black Friday, financial quarter close) and their load implications'] },
+      { type:'open', topic:'Cloud Service Limits', text:'Describe how you identify, monitor, and test against cloud service quota limits to prevent outages caused by quota exhaustion.', hints:['Use cloud-native dashboards: <b>AWS Service Quotas</b>, <b>Azure Subscription Limits</b>, GCP Quotas','Set up <b>proactive alerts</b> at 70–80% threshold before limits are hit','Test by deliberately <b>approaching quota limits</b> in a non-production environment','Mention common culprits: <b>Lambda concurrency, API Gateway TPS, ECS task limits, IP ranges</b>','Automate quota increase requests with <b>infrastructure-as-code</b> (Terraform, Pulumi)','Include quota checks in <b>pre-release checklist</b> for new feature launches'] },
+      { type:'mixed', topic:'Cloud Availability (Region & AZ)', text:'How would you assess and test the resilience of your application against an unexpected unavailability of a cloud provider\'s availability zone?', hints:['Map <b>which services are AZ-aware</b> vs those deployed in only one AZ','Use chaos tools (Gremlin zone killer, LitmusChaos) to <b>drain an AZ</b> in staging','Validate <b>health check propagation time</b> and load balancer rerouting speed','Ensure <b>stateful components</b> (RDS, ElastiCache, Kafka) are configured for <b>multi-AZ mode</b>','Measure <b>actual RTO</b> during drill and compare against target','Check that <b>DNS TTLs</b> are not too long and won\'t delay failover'] },
+      { type:'open', topic:'Capacity Modeling', text:'If you suddenly needed to 10x your infrastructure capacity due to a viral event, what pre-requisites must be in place to make this possible safely?', hints:['<b>Auto-scaling policies</b> pre-configured and tested at 3x, 5x, 10x baseline','No <b>hard-coded capacity assumptions</b> in application code (database pool sizes, thread counts)','Cloud provider <b>quota pre-approval</b> for burst capacity well above normal usage','<b>Load testing</b> at extreme scale in a representative environment prior to the event','Runbook for <b>manual scaling override</b> if auto-scaling fails or is too slow','CDN and <b>edge caching</b> strategies to absorb traffic before it hits origin infrastructure'] },
+      { type:'closed', topic:'Potential Cloud Migration', text:'Have you been involved in a cloud migration project, and did the resilience requirements change during or after migration?', hints:['Evidence of <b>lift-and-shift vs re-architecture</b> trade-offs and their resilience implications','Post-migration: often new <b>cloud-native resilience patterns</b> become available (managed failover, PaaS HA)','Challenge: <b>on-premises assumptions</b> (sticky sessions, local disk, fixed IPs) breaking in cloud','Testing approach: <b>parallel run</b> or <b>canary migration</b> with traffic comparison','Mention of <b>AWS Migration Lens</b> or Azure Cloud Adoption Framework reliability pillar','Importance of re-running <b>FMEA</b> post-migration to catch new failure modes'] },
+      { type:'open', topic:'Cloud Availability (Region & AZ)', text:'What observability strategy would you implement to ensure you get early warning of cloud provider availability degradation before it impacts your customers?', hints:['<b>Synthetic monitors</b> running from multiple regions hitting cloud provider APIs and your own endpoints','Subscribe to <b>cloud provider status APIs</b> and ingest alerts into your monitoring stack','Correlate <b>cloud provider events</b> (AWS Health, Azure Service Health) with your own metrics','Use <b>anomaly detection</b> (Datadog or Dynatrace AI) for early deviation signals','Set up <b>external watchdog monitors</b> independent of the affected cloud to avoid blind spots','Define <b>escalation runbooks</b> triggered by cloud health events before customers are impacted'] },
+      { type:'mixed', topic:'Typical Business Workloads (Usage Pattern)', text:'How do you ensure your chaos experiments are run under realistic load conditions rather than at low traffic, where failure effects may be masked?', hints:['Run chaos experiments during <b>representative load windows</b>, not at 2am with minimal traffic','Combine chaos with <b>load generation</b> to simulate peak conditions simultaneously','Use <b>production traffic shadowing</b> or replay to drive realistic load during experiments','Ensure <b>steady-state hypothesis</b> is defined and measurable under the target load level','Reference to <b>game days</b> or scheduled chaos events during known high-load periods','Validate observability dashboards are <b>not overwhelmed</b> during combined load + chaos tests'] },
+      { type:'closed', topic:'Cloud Service Limits', text:'Are cloud service limits included in your risk register and reviewed as part of your capacity planning cadence?', hints:['Cloud service limits should be a <b>named risk item</b> with owner and mitigation status','Regular review cadence: at least <b>quarterly or before major feature launches</b>','Automated tooling to <b>export quota utilisation</b> into the risk management system','Distinguish between <b>soft limits</b> (requestable increase) and <b>hard limits</b> (architectural constraint)','Integration with <b>FinOps</b> or cloud governance processes','Awareness of limits changing as <b>new cloud services</b> are adopted or usage grows'] },
+      { type:'open', topic:'Capacity Modeling', text:'How would you use performance and chaos testing together to validate that your auto-scaling configuration behaves correctly under sudden demand spikes?', hints:['Define <b>scaling policy parameters</b>: metric, threshold, cooldown, step vs target tracking','Inject <b>simulated traffic spike</b> using load tools and observe scaling trigger and speed','Simultaneously inject <b>chaos faults</b> (e.g. CPU stress on some nodes) to stress the scaler','Measure <b>scale-out latency</b>: time from metric breach to new instances serving traffic','Validate that scale-out doesn\'t cause <b>cascading effects</b> on downstream services','Check <b>scale-in</b> behaviour too — premature scale-in during a sustained load event is also a failure'] },
+    ]
+  },
+  {
+    id: 'disaster-recovery',
+    title: 'Disaster Recovery Preparedness',
+    icon: '🛡️',
+    topics: ['Active-Active / Active-Passive Load Balancing','DR Regional Failure','DR Backup Strategy','DR Runbooks','DR Test Approach','DR Network Redundancy'],
+    questions: [
+      { type:'open', topic:'DR Regional Failure', text:'Describe end-to-end how you would test a full regional failover for a production-grade application, from hypothesis to validation.', hints:['Define the <b>steady-state hypothesis</b>: the system serves X req/s with < Y error rate in Region A','Simulate regional failure via <b>DNS cutover</b>, traffic manager policy change, or chaos injection','Measure <b>time to detect</b> the region failure (observability maturity check)','Measure <b>time to failover</b> and compare against RTO target','Validate <b>data integrity</b> in the DR region: RPO check — how much data was lost?','Document results and feed into <b>post-DR-drill retrospective</b> and runbook updates'] },
+      { type:'closed', topic:'DR Runbooks', text:'Are your disaster recovery runbooks automated, version-controlled, and regularly tested, or are they primarily manual documentation?', hints:['Best practice: runbooks stored in <b>version control (Git)</b> alongside infrastructure code','Automation levels: <b>fully automated</b> (e.g. AWS SSM, Azure Automation) vs guided manual steps','Regular testing: runbooks executed in <b>quarterly DR drills</b> or as part of chaos experiments','Runbooks should have <b>expected outcomes and time estimates</b> per step','Integration with <b>on-call tooling</b> (PagerDuty runbooks, OpsGenie action plans)','Common gap: runbooks exist but are <b>out of date</b> because they\'re not tested regularly'] },
+      { type:'open', topic:'DR Backup Strategy', text:'How would you design and validate a backup strategy that satisfies both RPO requirements and compliance data retention obligations?', hints:['Map <b>RPO per data tier</b>: transactional data vs logs vs analytics may have different RPOs','Backup types: <b>incremental, differential, full snapshots</b>, and continuous log shipping','Encryption and <b>immutability</b>: backups should be protected from ransomware and deletion','Cross-region backup replication for <b>geographic redundancy</b>','Regular <b>restore drills</b>: actually restore and validate data integrity, don\'t just backup','Compliance overlap: <b>GDPR retention limits</b>, financial data archival requirements'] },
+      { type:'mixed', topic:'Active-Active / Active-Passive Load Balancing', text:'How do you test that your load balancer correctly detects unhealthy instances and reroutes traffic without user-visible impact?', hints:['Configure and validate <b>health check endpoint</b> (e.g. /health) returns correct status codes','Use chaos to <b>terminate instances</b> or make health endpoints return 500 and observe rerouting','Measure <b>health check interval and threshold</b> — how many failures before removal?','Check <b>connection draining</b>: in-flight requests are completed before instance is deregistered','Validate at <b>application layer</b>: do users see errors during the rerouting window?','Test <b>scale-down scenarios</b>: load balancer deregisters healthy instances gracefully'] },
+      { type:'open', topic:'DR Test Approach', text:'What is your philosophy on DR test frequency and scope, and how do you prevent DR tests from becoming stale or purely theoretical?', hints:['<b>Continuous DR testing</b>: small, frequent experiments vs big annual drills that drift from reality','Progressive scope: start with <b>component-level</b> DR tests, build to full regional failover drills','Inject DR scenarios as part of <b>game days</b> with cross-functional teams present','Maintain a <b>DR test evidence log</b> for audit and compliance purposes','Avoid "checkbox" DR: test the <b>actual procedure people would follow</b> under pressure','Use <b>chaos engineering tools</b> (Gremlin, LitmusChaos) for automated, repeatable DR validation'] },
+      { type:'closed', topic:'DR Network Redundancy', text:'Does your network architecture have redundancy at every layer (ISP, DNS, CDN, peering) to prevent network SPOFs from causing DR scenarios?', hints:['<b>Multi-ISP redundancy</b> or cloud-native network redundancy via multiple AZs/regions','<b>Anycast DNS</b> providers (Cloudflare, Route53) with health-check-driven failover','CDN in front of origin to absorb DDoS and serve cached content during origin failure','<b>BGP redundancy</b> and failover for hybrid or on-prem connected architectures','Testing: use chaos to <b>black-hole network paths</b> and validate automatic rerouting','Awareness of <b>DNS TTL settings</b> as a recovery speed bottleneck during failover'] },
+      { type:'open', topic:'DR Runbooks', text:'Describe how you would create a runbook for an on-call engineer who has never handled a specific failure mode before and must resolve it at 3am.', hints:['Start with a clear <b>decision tree</b>: confirm symptoms → confirm blast radius → choose path','Use <b>screenshots, expected output, and copy-paste commands</b> — no ambiguity','Define explicit <b>escalation triggers</b>: when to page the architect or team lead','Link to relevant <b>dashboards and log queries</b> directly in the runbook','Include a <b>rollback step</b> if the remediation causes unexpected side effects','Validate via <b>dry-run</b> with a new team member before the runbook is considered complete'] },
+      { type:'mixed', topic:'Active-Active / Active-Passive Load Balancing', text:'What are the unique resilience testing challenges of active-active vs active-passive architectures, and how do you address them?', hints:['<b>Active-active</b> challenge: validating <b>data consistency</b> across regions under failure — requires consistency probes','<b>Active-passive</b> challenge: ensuring the passive side is <b>current and warm</b> enough to take over quickly','Active-active testing: concurrent chaos in both regions to find <b>split-brain scenarios</b>','Active-passive testing: simulating <b>stale passive state</b> and measuring data delta at failover','Both require <b>traffic shifting capability</b> and observability to measure impact during tests','Reference to <b>AWS Elastic Disaster Recovery</b> or <b>Azure Site Recovery</b> for managed failover testing'] },
+      { type:'closed', topic:'DR Backup Strategy', text:'Have you implemented automated backup validation (i.e. regular test restores) rather than just assuming backups are good?', hints:['Best practice: <b>automated restore tests</b> on a schedule (daily, weekly) in isolated environment','Validate both <b>structural integrity</b> (no corruption) and <b>logical consistency</b> (data makes sense)','Tooling: <b>AWS Backup audit reports</b>, <b>Azure Backup reports</b>, custom restoration pipelines','Alert on <b>backup job failures</b> with the same priority as production incidents','Store <b>restore test results</b> as audit evidence for compliance reviews','Common failure mode: backups succeed but restores fail due to <b>encryption key</b> or permission issues'] },
+      { type:'open', topic:'DR Regional Failure', text:'How would you use chaos engineering to validate your disaster recovery plan incrementally before a full-scale DR drill?', hints:['Start with <b>component-level fault injection</b>: kill one DB replica, simulate one AZ failure','Progress to <b>service-level DR tests</b>: take down a full microservice and validate failover','Then escalate to <b>multi-service failure</b> chains that simulate partial regional degradation','Use <b>Gremlin scenario chaining</b> or <b>LitmusChaos workflows</b> for sequential fault injection','Each level should produce <b>evidence</b>: metrics, traces, RTO/RPO measurements','Build a <b>resilience maturity progression</b>: document current level and target level'] },
+    ]
+  },
+  {
+    id: 'app-platform',
+    title: 'Application Platform Reliability',
+    icon: '⚙️',
+    topics: ['Stateless Architecture','Resilience Design Patterns','Auto-Scaling','Containerization & Service Mesh','Health Check Monitoring','Traffic Routing - Failover','Queuing and Messaging'],
+    questions: [
+      { type:'open', topic:'Resilience Design Patterns', text:'Which application-level resilience design patterns do you consider essential, and can you describe how you would test each one is functioning correctly?', hints:['<b>Circuit Breaker</b>: inject downstream errors and verify circuit opens, fallback activates, and circuit resets after recovery','<b>Bulkhead</b>: overwhelm one pool and verify other pools remain unaffected','<b>Retry with exponential backoff</b>: verify retries don\'t create thundering herd; use Gremlin to induce transient errors','<b>Timeout</b>: inject latency beyond configured timeout and confirm graceful degradation, not hanging','<b>Fallback</b>: disable primary service and confirm cached/default response is returned','<b>Rate Limiter</b>: exceed rate limit thresholds and verify 429 responses and queue behaviour'] },
+      { type:'closed', topic:'Stateless Architecture', text:'Are your application services stateless at the compute layer, and how do you enforce this constraint during code review and testing?', hints:['Stateless means <b>no local session state, no sticky sessions, no in-memory caches per instance</b>','Session state externalised to <b>Redis, Memcached, or database</b>','Enforcement: <b>architecture fitness functions</b> or linting rules in CI pipeline','Test: <b>kill random instances</b> and confirm user sessions survive on other instances','Sticky session detection: verify load balancer is <b>not using session affinity</b> unintentionally','Common violation: <b>file uploads</b> stored locally instead of object storage (S3, Blob)'] },
+      { type:'open', topic:'Auto-Scaling', text:'Describe how you would design a chaos experiment to validate that auto-scaling correctly responds to CPU saturation within your SLO requirements.', hints:['Define <b>steady-state</b>: CPU at X%, response time at Y ms, scaling group at Z instances','Inject <b>CPU stress</b> (Gremlin CPU attack, LitmusChaos stress-cpu fault) on all current instances','Observe: does CloudWatch/Azure Monitor trigger <b>scale-out alarm</b> within expected threshold?','Measure <b>scale-out latency</b>: time from alarm to new instance in service','Confirm <b>response times recover</b> to within SLO before experiment ends','Also test <b>scale-in</b>: does it scale down cleanly without dropping active connections?'] },
+      { type:'mixed', topic:'Containerization & Service Mesh', text:'How do you test resilience in a Kubernetes-based environment, and what Kubernetes-specific failure modes do you focus on?', hints:['K8s failure modes: <b>pod eviction, OOMKill, node failure, control plane degradation, pod startup delay</b>','Use <b>LitmusChaos</b> pod-delete, node-drain, and network-chaos experiments','Test <b>PodDisruptionBudget</b> enforcement: chaos should respect PDB limits','Validate <b>readiness and liveness probes</b> are correctly configured and trigger recovery','Service mesh (Istio/Linkerd): inject <b>traffic faults</b> at the mesh layer (latency, abort)','Check <b>horizontal pod autoscaler</b> responds to pod failures with correct new pod count'] },
+      { type:'open', topic:'Health Check Monitoring', text:'Walk me through designing a comprehensive health check strategy for a distributed microservices application that surfaces meaningful status rather than just "200 OK".', hints:['Distinguish <b>liveness</b> (is the process alive?), <b>readiness</b> (can it serve traffic?), and <b>startup</b> probes (K8s-specific)','Deep health checks: verify <b>database connectivity, cache availability, downstream dependency reachability</b>','<b>Health check response payload</b>: include component-level status, version, and dependency summary','Aggregate with a <b>health aggregator</b> endpoint or dashboard (e.g. Steeltoe, Spring Boot Actuator)','Test health checks under <b>degraded conditions</b>: ensure they correctly report degraded vs down','Avoid <b>health check storms</b>: ensure health check intervals don\'t overwhelm dependencies'] },
+      { type:'closed', topic:'Traffic Routing - Failover', text:'Is traffic failover in your system fully automated, or does it require manual intervention, and what is the typical time to trigger?', hints:['<b>Automated failover</b>: health-check-driven; load balancer removes unhealthy targets within seconds','<b>Manual failover</b>: requires operator to update DNS, config, or routing rules — adds minutes to hours','Reference to <b>AWS Route53 health checks</b>, <b>Azure Traffic Manager</b>, or <b>Istio traffic management</b>','Measure and document <b>current failover time</b> as a baseline metric','Test with chaos: deliberately trigger failover and time the transition','Common gap: automated failover configured but <b>never tested</b> — assumed to work until it doesn\'t'] },
+      { type:'open', topic:'Queuing and Messaging', text:'How do you test the resilience of a message queue or event streaming system (e.g. Kafka, SQS, RabbitMQ) under failure conditions?', hints:['Test <b>consumer lag behaviour</b>: what happens when consumers are slow or offline?','Inject <b>broker failures</b>: kill one Kafka broker, validate partition leader election','Test <b>dead letter queue (DLQ) routing</b>: send a poison message and confirm it routes to DLQ','Validate <b>at-least-once vs exactly-once</b> delivery guarantees under failure and replay conditions','Test <b>consumer group rebalancing</b> when consumers are added/removed unexpectedly','Check <b>schema compatibility</b>: does a schema change break consumers without a rollout plan?'] },
+      { type:'mixed', topic:'Resilience Design Patterns', text:'How do you evaluate whether a circuit breaker is correctly tuned — not tripping too early (causing false positives) or too late (not protecting the system)?', hints:['Define correct <b>trip threshold</b>: failure rate % and/or slow call rate % within a sliding window','Too sensitive: circuit opens on <b>transient errors</b>, causing unnecessary degradation','Too tolerant: circuit doesn\'t trip until system is already <b>overwhelmed</b>','Tune using <b>load and chaos test combinations</b>: inject increasing error rates and observe trip timing','Validate <b>half-open state</b>: does the circuit correctly test recovery with limited traffic?','Reference to <b>Resilience4j</b> metrics or Istio outlier detection configuration tuning'] },
+      { type:'closed', topic:'Stateless Architecture', text:'Have you migrated a stateful application to a stateless architecture, and what resilience improvements resulted?', hints:['Describe the <b>state migration</b>: moving session data from in-memory to Redis/ElastiCache','Resilience improvement: <b>horizontal scalability</b> without sticky sessions; instance failure no longer loses user sessions','Testing improvement: can now <b>kill any instance</b> during testing without manual cleanup','Observability added: <b>cache hit/miss rates</b> as new health indicator','New failure mode introduced: <b>cache layer is now a critical dependency</b> — must be resilience-tested too','Document lessons learned: complexity shifted from app tier to <b>state management tier</b>'] },
+      { type:'open', topic:'Auto-Scaling', text:'What can go wrong with auto-scaling configurations in production, and how would you design chaos experiments to uncover these failure modes before they hit customers?', hints:['<b>Scale-out too slow</b>: threshold too conservative or cooldown too long — inject sudden traffic spike','<b>Scale-in too aggressive</b>: instances removed before in-flight requests drain — inject moderate sustained load','<b>Max capacity hit</b>: no more instances allowed — test at quota limit with Gremlin CPU stress','<b>New instance unhealthy</b>: misconfigured image or startup dependency fails — inject startup failure','<b>Database connection exhaustion</b> during scale-out — more instances = more connections','Validate <b>predictive vs reactive scaling</b> if using ML-based scaling policies'] },
+    ]
+  },
+  {
+    id: 'data-platform',
+    title: 'Data Platform Reliability',
+    icon: '🗄️',
+    topics: ['Data Consistency','Data Platform High Availability','Multi-AZ/Region Deployments','Data Platform Replication','Traffic Routing - Failover','Read Replicas','Data Platform Restoration'],
+    questions: [
+      { type:'open', topic:'Data Platform High Availability', text:'How would you test that your primary database can fail over to a replica without data loss and within your RTO?', hints:['Trigger failover via chaos: <b>kill primary DB instance</b> (Gremlin host attack, LitmusChaos pod delete)','Measure <b>replication lag</b> at the moment of failure — this directly determines data loss','Validate <b>connection string failover</b>: does application reconnect to replica automatically?','Check <b>read replica promotion time</b> and compare to RTO target','Validate application-level <b>retry logic</b> handles connection reset during failover','Confirm <b>read replicas are not used for writes</b> during the promotion window'] },
+      { type:'closed', topic:'Multi-AZ/Region Deployments', text:'Is your primary database deployed in multi-AZ mode, and have you ever experienced or simulated a primary AZ failure to validate the failover?', hints:['Multi-AZ: <b>synchronous replication</b> to standby in another AZ (RDS Multi-AZ, Azure SQL HA)','Failover: automatic within <b>60–120 seconds</b> for managed services — have they timed it?','Common pitfall: <b>database endpoint DNS caching</b> delays reconnection after failover','Application must have <b>connection retry and timeout</b> correctly configured for automatic reconnection','Mention any real-world experience with <b>AZ outages</b> or scheduled maintenance events','Post-failover validation: check <b>data integrity, sequence counters, and distributed transactions</b>'] },
+      { type:'open', topic:'Data Consistency', text:'Describe how you approach testing for data consistency issues in a distributed system where writes may go to multiple nodes or regions.', hints:['Understand the <b>consistency model</b>: eventual, strong, or tunable (Cassandra consistency levels)','Design tests for <b>concurrent writes</b>: two clients writing to the same record simultaneously','Test <b>conflict resolution strategies</b>: last-write-wins, merge functions, vector clocks','Use chaos to inject <b>replication lag</b> and then read — do reads reflect stale or current state?','Reference to the <b>CAP theorem</b>: under partition, the system must choose consistency or availability','Test idempotency: submitting the same write twice must produce the same result (<b>idempotency key</b>)'] },
+      { type:'mixed', topic:'Data Platform Restoration', text:'How would you validate that a database restoration from backup is complete, consistent, and meets your RPO in a test environment?', hints:['Restore to <b>isolated environment</b>: never restore directly to production to validate','Validate <b>restore time</b>: measure actual restore duration against RTO target','Run <b>data integrity checks</b>: row counts, checksum validation, referential integrity','Apply and replay <b>transaction logs</b> from backup point to present to verify RPO','Test <b>application against restored DB</b>: smoke test to confirm functionality is intact','Document restore procedure as a <b>runbook</b> and ensure any team member can execute it'] },
+      { type:'open', topic:'Read Replicas', text:'What failure modes specific to read replica configurations should be tested, and how would you validate graceful degradation if replicas become unavailable?', hints:['<b>Replication lag</b>: reads may return stale data during high write loads — set acceptable lag threshold','<b>Replica promotion failure</b>: if primary fails, replica promotion may not be automatic','Test <b>application behaviour when replica is unavailable</b>: does it fall back to primary reads?','<b>Connection pool exhaustion</b>: too many read connections to replica under load','Validate <b>read/write splitting logic</b>: routing reads to replica and writes to primary correctly','Test <b>replication conflict detection</b> for databases that allow multi-master writes'] },
+      { type:'closed', topic:'Data Platform Replication', text:'Does your data platform perform cross-region replication, and have you tested that replication lag stays within acceptable bounds during peak load?', hints:['Cross-region replication: <b>asynchronous</b> by nature — define acceptable lag threshold (seconds, minutes)','Monitoring: <b>replication lag metric</b> should be a first-class alert in Datadog/Dynatrace','Stress test replication under <b>peak write load</b>: does lag increase unacceptably?','Failover to cross-region replica: measure <b>data delta</b> at time of failover trigger','Reference to <b>AWS RDS Read Replicas</b>, <b>Azure SQL geo-replication</b>, or custom replication solutions','Compliance implication: cross-region data residency — is replication compliant with data sovereignty rules?'] },
+      { type:'open', topic:'Traffic Routing - Failover', text:'How do you test database connection string failover in your application, and what happens to in-flight transactions during the failover event?', hints:['<b>Connection string</b> should point to a cluster endpoint, not instance endpoint, for automatic failover','In-flight transactions during failover: typically <b>rolled back</b> — application must handle and retry','Test with chaos: trigger failover mid-transaction and observe <b>error type and recovery behaviour</b>','Validate <b>ORM or driver retry logic</b>: does the driver retry automatically or bubble the error?','Check <b>connection pool behaviour</b>: does it purge stale connections and establish new ones?','Measure <b>application error rate</b> during failover window — this is the user-visible impact'] },
+      { type:'mixed', topic:'Data Consistency', text:'In an event-sourced or CQRS architecture, how do you test the eventual consistency gap between the write model and read model under failure conditions?', hints:['<b>CQRS</b>: write model updates immediately; <b>read model (projection)</b> updates asynchronously via events','Failure scenario: event processor crashes — read model becomes stale until processor recovers','Test: inject processor failure during writes and measure <b>projection lag</b>','Validate <b>idempotent event processing</b>: events replayed after failure don\'t cause duplicate data','Reference to <b>sagas and compensating transactions</b> for cross-service consistency failures','Use <b>observability tooling</b> to measure and alert on projection lag exceeding acceptable threshold'] },
+      { type:'closed', topic:'Data Platform High Availability', text:'Is your data platform\'s high availability configuration validated in your CI/CD pipeline, or only tested during manual DR drills?', hints:['Best practice: <b>automated DB failover tests</b> in a staging/pre-prod environment on a schedule','Integration with <b>CI/CD pipelines</b> using LitmusChaos or custom scripts to trigger failover','Challenge: <b>production-like data</b> in staging is needed for meaningful HA tests','Some teams use <b>synthetic DB state</b> with representative data volumes for pipeline HA tests','Reference to <b>Harness Chaos Engineering</b> integrating chaos into deployment verification steps','Document <b>pass/fail criteria</b> for automated HA tests (recovery time, error count thresholds)'] },
+      { type:'open', topic:'Multi-AZ/Region Deployments', text:'How would you design a chaos experiment to validate that your database write path remains available during a multi-AZ network partition event?', hints:['Hypothesis: write path maintains < X% error rate with < Yms latency during AZ partition','Use <b>LitmusChaos network-partition fault</b> or Gremlin blackhole to isolate one AZ network','Simultaneously drive <b>realistic write load</b> to observe actual error rate during partition','Verify <b>raft/paxos-based consensus</b> in distributed databases maintains write quorum','Observe <b>synchronous replica acknowledgement</b>: does primary wait for replica confirmation?','Recovery: remove partition and confirm <b>replica re-syncs</b> without data loss or corruption'] },
+    ]
+  },
+  {
+    id: 'exception-handling',
+    title: 'Exception & Error Handling',
+    icon: '⚠️',
+    topics: ['Resilient Application Design Patterns','Retry Design Patterns','Observability - Context Driven Tracing'],
+    questions: [
+      { type:'open', topic:'Retry Design Patterns', text:'Describe the key considerations for implementing a production-safe retry strategy, and how you would validate it doesn\'t worsen an outage.', hints:['<b>Exponential backoff with jitter</b>: prevents thundering herd on recovering service','Define <b>retryable vs non-retryable errors</b>: 500/503 yes; 400/401/404 no','Set a <b>maximum retry count and total timeout</b> to bound the retry window','Validate with chaos: inject transient 503s and confirm <b>eventual success without error amplification</b>','Test the <b>thundering herd scenario</b>: restart a service and observe whether retries overload it','Reference to <b>AWS SDK retry policies</b>, <b>Polly for .NET</b>, or <b>Resilience4j</b>'] },
+      { type:'closed', topic:'Observability - Context Driven Tracing', text:'Do your distributed traces include correlation IDs that link from the initial user request through every downstream service call and error?', hints:['<b>Trace correlation ID</b> (trace ID + span ID) propagated via HTTP headers (W3C TraceContext standard)','Implementation: <b>OpenTelemetry</b> auto-instrumentation or manual SDK instrumentation','Verify: any exception in any service should include the <b>originating trace ID</b>','Test: trigger an error deliberately and confirm it appears in <b>Datadog APM</b> or Dynatrace with full trace','<b>Baggage propagation</b>: business context (user ID, tenant ID) carried alongside trace IDs','Log correlation: logs should include <b>trace ID</b> for cross-signal debugging'] },
+      { type:'open', topic:'Resilient Application Design Patterns', text:'How do you ensure that exception handling in your application provides graceful degradation rather than complete failure when a non-critical dependency is unavailable?', hints:['Identify <b>critical vs non-critical dependencies</b> per user journey','For non-critical: implement <b>try/catch with fallback</b> (cached response, default value, feature flag off)','<b>Circuit breaker</b> around non-critical dependency with fallback path','Test: disable the non-critical dependency with chaos and confirm <b>partial functionality</b> rather than total failure','Observe: confirm the failure is <b>logged and alerted</b> but user-facing journey continues','Reference to <b>progressive degradation</b> patterns — graceful feature reduction'] },
+      { type:'mixed', topic:'Retry Design Patterns', text:'How do you test that retry configurations don\'t cause excessive load on a recovering service after an outage?', hints:['The thundering herd problem: all clients retry simultaneously at the <b>exact same intervals</b>','Solution: <b>jitter</b> — add random delay variation to spread retry attempts over time','Test: restart a service and observe <b>incoming request rate</b> — should be smooth, not spiked','Use chaos to take down a service, wait for clients to accumulate retries, then restore and observe','Validate using <b>Datadog APM</b> or Dynatrace: request rate graph during recovery window','Simulate with <b>100+ concurrent clients</b> retrying to see the combined effect'] },
+      { type:'open', topic:'Observability - Context Driven Tracing', text:'Describe how you would use distributed tracing to diagnose an intermittent error that only occurs in production under high load.', hints:['Capture traces with <b>high sampling rate</b> during the suspect time window (dynamic sampling)','Filter traces by <b>error status</b> and sort by duration to identify slow or failing traces','Use <b>trace waterfall view</b> in Datadog APM or Dynatrace to pinpoint which span errors','Correlate with <b>resource metrics</b>: CPU, memory, DB connection pool at the time of error','Look for patterns: <b>specific user segments, geographic regions, or service versions</b> affected','Enable <b>error tracking</b> (Sentry-style) to group similar errors across traces'] },
+      { type:'closed', topic:'Resilient Application Design Patterns', text:'Have you implemented bulkhead patterns to isolate different classes of workload (e.g. interactive users vs background batch) from sharing the same thread pools?', hints:['<b>Bulkhead</b>: separate thread pools, connection pools, or CPU quota per workload class','Prevents: batch job consuming all threads and making interactive requests unresponsive','Implementation: <b>Resilience4j Bulkhead</b>, <b>Hystrix thread pool isolation</b>, or K8s resource limits','Test: run a resource-intensive batch and confirm interactive response times are <b>unaffected</b>','Metrics: thread pool utilisation per bulkhead visible in <b>Datadog or Dynatrace dashboards</b>','K8s equivalent: <b>resource quotas and limits</b> per namespace or workload class'] },
+      { type:'open', topic:'Retry Design Patterns', text:'What monitoring and alerting would you put in place to detect when retry storms are occurring in production?', hints:['Alert on <b>abnormally high retry rate metric</b> from retry library (Resilience4j, Polly metrics)','Monitor <b>downstream service error rate</b> spiking in correlation with upstream retry rate','Detect <b>latency percentile degradation</b> on the upstream service (P99 vs P50 divergence)','Set up <b>Datadog or Dynatrace anomaly detection</b> on retry-related custom metrics','Alert on <b>circuit breaker open events</b> as a leading indicator of retry accumulation','Dashboards: side-by-side view of <b>error rate, retry count, and circuit breaker state</b>'] },
+      { type:'mixed', topic:'Observability - Context Driven Tracing', text:'How would you use OpenTelemetry to instrument a new service such that traces, logs, and metrics are all correlated and queryable in Datadog or Dynatrace?', hints:['Install <b>OpenTelemetry SDK</b> (or use auto-instrumentation agent for supported frameworks)','Export to <b>Datadog via OTLP exporter</b> or Dynatrace via OTel collector','Ensure <b>trace context propagation</b> (W3C headers) is enabled for all outbound HTTP calls','Emit <b>structured logs with trace ID injected</b> using the OpenTelemetry log bridge API','Create <b>custom spans</b> around critical business logic (payment processing, order creation)','Define <b>custom metrics</b> (counters, histograms) using OTel Metrics API for business KPIs'] },
+      { type:'closed', topic:'Resilient Application Design Patterns', text:'Do you use feature flags to dynamically disable failing features without a code deployment, and is this part of your incident response playbook?', hints:['<b>Feature flags</b> (LaunchDarkly, AWS AppConfig, Harness Feature Flags) allow instant killswitch','Use case in incidents: disable a <b>non-critical feature</b> causing load or errors in seconds','Test: verify flag change propagates to all instances within expected time (<b>propagation latency</b>)','Governance: feature flags must be <b>cleaned up</b> after incident — long-lived flags are a maintenance burden','Integration with <b>incident runbooks</b>: list of flags and which features they control','Advanced: <b>canary releases via flags</b> as a resilience strategy for risky deployments'] },
+      { type:'open', topic:'Observability - Context Driven Tracing', text:'How would you design a chaos experiment to validate that your observability stack itself remains functional during a high-error-rate incident?', hints:['Hypothesis: all errors during chaos are captured with full trace context in the observability backend','Inject errors at scale and verify <b>100% of errors appear in Datadog/Dynatrace</b> (no trace loss)','Test <b>sampling configuration</b>: ensure error traces are sampled at 100% even when traffic is high','Validate <b>alerting pipeline</b>: does the alert fire within the expected detection time?','Inject <b>metric pipeline failures</b> (e.g. statsd agent crash) and verify observability degradation is detected','Test <b>dashboard rendering</b> under high cardinality metric load — dashboards must remain responsive'] },
+    ]
+  },
+  {
+    id: 'resilience-testing',
+    title: 'Resilience Testing Approach & Maturity',
+    icon: '🔬',
+    topics: ['Chaos Engineering Fundamentals','Gremlin','LitmusChaos','Harness CE','Performance Testing','Peak Load Tests','Automated Tests','CI/CD Integration'],
+    questions: [
+      { type:'open', topic:'Chaos Engineering Fundamentals', text:'Explain the principles of chaos engineering and how you would introduce a chaos engineering practice to a team that has never done it before.', hints:['Core principle: <b>hypothesis-driven experimentation</b> — define steady state, inject fault, observe','Start small: <b>game days</b> in a staging environment with non-critical services first','The five <b>Principles of Chaos Engineering</b> (principlesofchaos.org): steady state, hypothesis, real-world events, run in production, automate','Culture: chaos engineering requires <b>psychological safety</b> — blame-free environment','Tooling introduction: start with <b>Gremlin free tier or LitmusChaos open source</b>','First experiment: something simple with a known outcome (e.g. kill one pod; service recovers)'] },
+      { type:'closed', topic:'Gremlin', text:'Have you used Gremlin in a production environment, and which attack categories (Resource, Network, State) have you used most?', hints:['<b>Resource attacks</b>: CPU, memory, disk I/O, disk space — simulating resource exhaustion','<b>Network attacks</b>: latency, packet loss, blackhole, DNS — simulating connectivity issues','<b>State attacks</b>: process killer, time travel, shutdown — simulating infrastructure failures','Gremlin <b>Alfi (Application Level Fault Injection)</b> for faults within the application code','<b>Gremlin Reliability Score</b> / Reliability Tracker for maturity measurement','<b>Gremlin Scenarios</b>: multi-step attack sequences for complex failure simulation'] },
+      { type:'open', topic:'LitmusChaos', text:'Describe your experience with LitmusChaos and how you would structure a chaos experiment workflow using ChaosEngine and ChaosExperiment CRDs.', hints:['<b>ChaosEngine</b> CRD: links appinfo (target) to chaosexperiment list with probe configuration','<b>ChaosExperiment</b> CRD: defines the fault type (pod-delete, node-drain, network-latency)','<b>Probes</b>: HTTPProbe, CMDProbe, K8sProbe — validate steady state before and after chaos','Chaos results stored in <b>ChaosResult</b> CRD for audit and reporting','Integration with <b>Argo Workflows</b> for pipeline-driven chaos orchestration','<b>LitmusChaos Hub</b>: library of pre-built experiments available via ChaosHub dashboard'] },
+      { type:'mixed', topic:'Harness CE', text:'How does Harness Chaos Engineering integrate with a CI/CD pipeline, and what does continuous resilience look like in practice?', hints:['<b>Harness CE</b> integrates natively with Harness CD pipelines — chaos steps in deployment stages','Define <b>chaos guards</b>: resilience score thresholds that gate promotion to production','<b>Fault library</b>: Kubernetes, AWS, Azure, GCP, VMware, and application-level faults','Continuous resilience: chaos runs as part of every <b>deployment verification</b>, not just ad-hoc','Reference to <b>Harness Chaos Engineering Landscape</b> blog for supported fault categories','Incident-to-experiment workflow: incidents automatically suggest <b>new chaos experiments</b>'] },
+      { type:'open', topic:'Performance Testing', text:'How do you design a performance test suite that validates both throughput and resilience simultaneously?', hints:['Combine <b>load test</b> (realistic traffic) with <b>chaos injection</b> simultaneously during the run','Define <b>success criteria</b>: P99 latency, error rate, and throughput thresholds at target load','Use <b>k6, Gatling, or JMeter</b> for load generation with scripted user journeys','Integrate with <b>Datadog or Dynatrace</b> to correlate load metrics with infrastructure health','Run at <b>multiple load levels</b>: 50%, 100%, 150% of expected peak to find breaking points','Automate in <b>CI/CD pipeline</b>: run on every release candidate in a staging environment'] },
+      { type:'closed', topic:'Peak Load Tests', text:'Have you run peak load tests that exceeded your expected production peak, and did your system gracefully degrade rather than hard fail?', hints:['<b>Graceful degradation</b>: system returns errors or reduced functionality rather than total outage','Expected behaviour beyond peak: <b>auto-scaling</b> triggers, <b>circuit breakers</b> open, <b>queues buffer</b> requests','Measure <b>system behaviour</b> at 110%, 150%, 200% of expected peak in controlled test','Document the <b>breaking point</b>: at what load does the system start degrading/failing?','Validate <b>recovery after load reduction</b>: does the system return to normal state cleanly?','Use findings to set <b>hard limits</b> and alerting thresholds with appropriate headroom'] },
+      { type:'open', topic:'CI/CD Integration', text:'Describe how you would integrate chaos experiments into a CI/CD pipeline to prevent resilience regressions from reaching production.', hints:['Insert chaos steps into <b>deployment verification stage</b> after successful deployment to staging','Use <b>LitmusChaos pipeline experiments</b>, <b>Harness Chaos CE</b>, or <b>Gremlin CI integration</b>','Define <b>pass/fail gates</b>: resilience score, error rate threshold, and recovery time limit','<b>Fail the pipeline</b> if resilience regresses — deployment blocked from promotion','Run a <b>targeted subset of chaos experiments</b> per service (relevant to changed components)','Track <b>resilience scores over time</b> as a deployment quality metric in your dashboard'] },
+      { type:'mixed', topic:'Chaos Engineering Fundamentals', text:'What is a steady-state hypothesis in chaos engineering, and how do you define and measure it for a complex multi-service application?', hints:['<b>Steady-state hypothesis</b>: measurable definition of normal system behaviour before fault injection','Define using <b>SLIs</b>: error rate < X%, P99 latency < Y ms, throughput > Z req/s','Measure via <b>observability tooling</b> (Datadog, Dynatrace) over a representative baseline window','For complex systems: define <b>per-service steady states</b> and a composite system-level steady state','The experiment is valid only if steady state is confirmed <b>before and after</b> chaos injection','If steady state cannot be re-established after chaos: this is a <b>finding</b> — the system hasn\'t recovered'] },
+      { type:'closed', topic:'Automated Tests', text:'Are your chaos experiments automated and scheduled, or are they primarily manually triggered during workshops or game days?', hints:['Maturity progression: <b>ad-hoc manual → scheduled → CI/CD-integrated → continuous in production</b>','Automated scheduling: <b>cron-triggered</b> chaos via LitmusChaos scheduler or Gremlin attack templates','Game days still have value for <b>cross-team rehearsal</b> even with automated chaos','CI integration: chaos on every deployment vs <b>nightly chaos suites</b> against staging','Automated reporting: results sent to <b>Slack, Jira, or Confluence</b> after each experiment run','Governance: automated chaos in production requires <b>safeguards and abort mechanisms</b>'] },
+      { type:'open', topic:'Gremlin', text:'How would you use Gremlin to test the resilience of a serverless (AWS Lambda) application, and what are the unique challenges of chaos testing in serverless environments?', hints:['Use <b>Gremlin Failure Flags</b> for Lambda: SDK injected into function code for in-process faults','Failure Flags enable: <b>latency injection, exception injection, and data corruption</b> within Lambda','Challenge: no host-level access in serverless — can\'t use traditional agent-based chaos tools','Test <b>cold start resilience</b>: what happens when Lambda is initialised under load?','Test <b>concurrency limit exhaustion</b>: Lambda throttling behaviour and fallback','Validate <b>downstream dependency resilience</b>: RDS proxy, DynamoDB, SQS under Lambda workload'] },
+    ]
+  },
+  {
+    id: 'monitoring-maturity',
+    title: 'Monitoring Maturity',
+    icon: '📡',
+    topics: ['Observability Primer','Distributed Tracing','Log Correlation','Metrics','Dashboards','Alerts & Monitoring','Threshold Setting','Service Level Management','Observability as Code'],
+    questions: [
+      { type:'open', topic:'Observability Primer', text:'How do you define observability in the context of a distributed microservices system, and how is it different from traditional monitoring?', hints:['<b>Observability</b>: ability to understand internal system state from external outputs (logs, metrics, traces)','<b>Traditional monitoring</b>: known failure modes with pre-defined checks; observability handles <b>unknown unknowns</b>','Three pillars: <b>Logs</b> (what happened), <b>Metrics</b> (how much), <b>Traces</b> (why and where)','Reference to <b>OpenTelemetry</b> as the standard for unified signal collection','Observability enables <b>exploratory debugging</b> without needing to know the right question upfront','Good observability = ability to answer any question about system behaviour <b>without deploying new code</b>'] },
+      { type:'closed', topic:'Alerts & Monitoring', text:'Have you implemented alert quality management practices (e.g. reducing alert fatigue, noise thresholds, routing), and what measurable improvements resulted?', hints:['<b>Alert fatigue</b>: too many low-quality alerts cause on-call engineers to ignore or delay response','Practices: <b>alert deduplication, grouping, flapping suppression, and minimum duration thresholds</b>','Reference to <b>New Relic Alert Quality Management</b> or Datadog alert management best practices','Metrics: <b>pages per on-call shift</b>, <b>alert-to-incident ratio</b>, <b>false positive rate</b>','Improvement: route low-priority alerts to <b>Slack/email</b>, critical to <b>PagerDuty</b>','Result: reduced MTTA, improved on-call satisfaction, better signal-to-noise ratio'] },
+      { type:'open', topic:'Distributed Tracing', text:'Describe how you would use distributed tracing to identify a latency bottleneck that only appears under high load conditions.', hints:['Capture traces with <b>high-load sampling configuration</b> to ensure traces under load are retained','Use <b>trace scatter plots</b> in Datadog APM or Dynatrace to find outlier slow traces','Filter for traces at <b>P99 latency</b> and drill into the longest spans','Look for <b>resource contention signals</b>: DB connection wait time, thread pool queuing, lock waits','Correlate trace timing with <b>infrastructure metrics</b> (CPU, memory, DB connections) at the same timestamp','Apply <b>span analysis</b>: which span consistently accounts for the most elapsed time under load?'] },
+      { type:'mixed', topic:'Threshold Setting', text:'How do you set meaningful alert thresholds that minimise false positives without masking real incidents?', hints:['<b>Static thresholds</b>: fixed values appropriate only for stable, predictable metrics','<b>Dynamic/anomaly-based thresholds</b>: ML-based baselines adapting to seasonal patterns (Datadog anomaly detection)','Use <b>percentile-based alerts</b> (P99 > Xms) rather than average — averages hide tail latency','Set <b>minimum duration</b>: don\'t alert until condition persists for 2–5 minutes to avoid transient flapping','Burn rate alerts for <b>SLO error budgets</b>: proportional to budget consumption rate','Review and tune thresholds after every <b>incident post-mortem</b>: calibrate based on real events'] },
+      { type:'open', topic:'Log Correlation', text:'How do you design a log strategy that allows you to correlate logs across multiple services for a single user transaction?', hints:['Inject <b>trace ID and span ID</b> into every log line as structured fields','Use <b>structured logging</b> (JSON format) for machine-parseability in Datadog or Dynatrace log management','Propagate <b>business context fields</b> (user ID, session ID, order ID) across service boundaries','Log aggregation: centralised pipeline using <b>Fluentd, Logstash, or Vector</b>','Define a <b>log taxonomy</b>: field naming standards across all services for consistent querying','Test: trigger a known transaction and verify its <b>complete log trail</b> is queryable by trace ID'] },
+      { type:'closed', topic:'Service Level Management', text:'Do you have a formal service level management process that reviews SLO compliance weekly and feeds findings back into the engineering roadmap?', hints:['<b>SLO review cadence</b>: weekly team review + monthly exec report is a common pattern','Process: review SLO status → identify causes of budget burn → create reliability work items','Reference to <b>New Relic SLM Guide</b> or Datadog SLO management workflows','Error budget consumed > 50%: trigger <b>reliability sprint</b> — pause feature work for fixes','Tooling: <b>SLO dashboards</b> visible to all engineers, not just SRE team','Maturity indicator: reliability work items are in the <b>same backlog</b> as feature work'] },
+      { type:'open', topic:'Observability as Code', text:'How would you implement observability-as-code to ensure dashboards, alerts, and SLOs are version-controlled and consistent across environments?', hints:['Use <b>Terraform providers</b> for Datadog (datadog/datadog) or Dynatrace (dynatrace-oss/dynatrace)','Store all dashboard and alert definitions in <b>Git repository</b> with PR review process','Apply <b>DRY principles</b>: templated alert rules applied consistently across similar services','CI/CD for observability: <b>automatically deploy</b> new monitors when new services are deployed','Drift detection: compare declared vs actual observability state and alert on divergence','Reference to <b>New Relic Observability-as-Code guide</b> and Terraform-managed SLOs'] },
+      { type:'mixed', topic:'Metrics', text:'What is the difference between RED metrics, USE metrics, and the Four Golden Signals, and when would you apply each?', hints:['<b>RED</b> (Rate, Errors, Duration): ideal for <b>request-driven services</b> (APIs, microservices)','<b>USE</b> (Utilisation, Saturation, Errors): ideal for <b>infrastructure and resource metrics</b> (CPU, disk, network)','<b>Four Golden Signals</b> (Google SRE): Latency, Traffic, Errors, Saturation — comprehensive but overlapping','Use RED for <b>service-level SLOs</b>, USE for <b>capacity planning and saturation alerting</b>','Combine all three frameworks for <b>dashboard-of-dashboards</b>: service view, infrastructure view, saturation view','Reference to <b>OpenTelemetry semantic conventions</b> for standardised metric naming'] },
+      { type:'closed', topic:'Dashboards', text:'Do you have a dashboard-of-dashboards approach that gives a single entry point for the health of your entire system, and does it auto-update as new services are deployed?', hints:['<b>Dashboard of dashboards</b>: top-level status view linking to service-specific drill-downs','Auto-population via <b>service discovery tags</b> — new services appear automatically when tagged','Reference to <b>Datadog Service Catalog</b> or <b>Dynatrace Service Overview</b>','Health roll-up: aggregate SLO status and error budget from all services into one view','Alert routing: link directly from dashboard tile to <b>on-call routing and runbook</b>','Governance: dashboard must be <b>code-managed</b> (Terraform/Pulumi) to avoid manual drift'] },
+      { type:'open', topic:'Observability Primer', text:'How would you evaluate and improve the observability maturity of an engineering team that currently relies primarily on server logs and basic uptime checks?', hints:['<b>Observability maturity model</b>: Level 1 (logs/uptime) → Level 2 (metrics + alerting) → Level 3 (traces + correlation) → Level 4 (OaC + proactive AIOps)','Quick wins: add <b>structured logging</b>, instrument with OpenTelemetry, define first SLOs','Introduce <b>distributed tracing</b> for the highest-traffic service first as a proof of concept','Build the case with business impact: <b>MTTD and MTTR reduction</b> from improved observability','Establish <b>observability standards</b>: field naming, sampling rates, dashboard templates','Measure progress: track <b>percentage of services with full OTel instrumentation</b> over time'] },
+    ]
+  }
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let state = {
+  activeSection: 0,
+  asked: {},     // qid -> bool
+  hints: {},     // qid_hIdx -> bool
+  notes: {},     // qid -> string
+};
+
+let autosaveTimer = null;
+let lastVerdict = '';
+
+// ============================================================
+// DOM BUILDING
+// ============================================================
+function buildUI() {
+  buildTabs();
+  buildSections();
+  updateAllCounters();
+}
+
+function qid(sIdx, qIdx) { return `s${sIdx}q${qIdx}`; }
+
+function buildTabs() {
+  const tabsScroll = document.getElementById('tabsScroll');
+  SECTIONS.forEach((sec, sIdx) => {
+    const btn = document.createElement('button');
+    btn.className = `tab-btn sec-${sIdx}`;
+    btn.id = `tab-${sIdx}`;
+    btn.onclick = () => switchSection(sIdx);
+    btn.innerHTML = `${sec.icon} <span>${sec.title}</span> <span class="tab-counter" id="tab-counter-${sIdx}">0/10</span>`;
+    tabsScroll.appendChild(btn);
+  });
+}
+
+function buildSections() {
+  const main = document.getElementById('mainContent');
+  SECTIONS.forEach((sec, sIdx) => {
+    const panel = document.createElement('div');
+    panel.className = `section-panel sec-${sIdx}${sIdx === 0 ? ' active' : ''}`;
+    panel.id = `section-${sIdx}`;
+
+    panel.innerHTML = `
+      <div class="section-header">
+        <div class="section-icon">${sec.icon}</div>
+        <div class="section-title-wrap">
+          <div class="section-title">${sec.title}</div>
+          <div class="section-subtitle">AREA ${sIdx + 1} OF ${SECTIONS.length} · ${sec.questions.length} QUESTIONS</div>
+        </div>
+        <div class="section-progress-badge" id="sec-badge-${sIdx}">0 / ${sec.questions.length} asked</div>
+      </div>
+      <div id="sec-questions-${sIdx}"></div>
+    `;
+
+    const qContainer = panel.querySelector(`#sec-questions-${sIdx}`);
+    sec.questions.forEach((q, qIdx) => {
+      qContainer.appendChild(buildQuestionCard(sIdx, qIdx, q));
+    });
+
+    main.appendChild(panel);
+  });
+}
+
+function buildQuestionCard(sIdx, qIdx, q) {
+  const id = qid(sIdx, qIdx);
+  const card = document.createElement('div');
+  card.className = 'q-card';
+  card.id = `card-${id}`;
+
+  const typeClass = q.type === 'open' ? 'open' : q.type === 'closed' ? 'closed' : 'mixed';
+  const typeLabel = q.type === 'open' ? 'OPEN' : q.type === 'closed' ? 'CLOSED' : 'MIXED';
+
+  const hintsHtml = q.hints.map((hint, hIdx) => `
+    <div class="hint-item">
+      <input type="checkbox" class="hint-cb" id="hint-${id}-${hIdx}" onchange="onHintChange('${id}', ${hIdx}, ${q.hints.length})">
+      <label class="hint-text" for="hint-${id}-${hIdx}">${hint}</label>
+    </div>
+  `).join('');
+
+  card.innerHTML = `
+    <div class="q-header" onclick="toggleCard('${id}')">
+      <div class="q-checkbox-wrap" onclick="event.stopPropagation()">
+        <input type="checkbox" class="q-checkbox" id="qcb-${id}" onchange="onAskedChange('${id}', ${sIdx})">
+      </div>
+      <div class="q-body">
+        <div class="q-meta">
+          <span class="q-num">Q${qIdx + 1}</span>
+          <span class="q-type-tag ${typeClass}">${typeLabel}</span>
+          <span class="q-topic-tag">${q.topic}</span>
+        </div>
+        <div class="q-text">${q.text}</div>
+      </div>
+      <div class="q-expand-btn" id="expand-${id}">▼</div>
+    </div>
+    <div class="q-body-lower" id="lower-${id}">
+      <div class="hints-toggle" onclick="toggleHints('${id}', ${q.hints.length})">
+        <span class="hints-toggle-label">💡 ANSWER HINTS</span>
+        <div class="hints-mini-bar-wrap">
+          <div class="hints-mini-bar" id="hmb-${id}"></div>
+        </div>
+        <span class="hints-mini-count" id="hmc-${id}">0/${q.hints.length}</span>
+        <span class="hints-chevron" id="hchev-${id}">▼</span>
+      </div>
+      <div class="hints-panel" id="hp-${id}">${hintsHtml}</div>
+      <div>
+        <span class="notes-label">INTERVIEWER NOTES</span>
+        <textarea class="notes-area" id="notes-${id}" placeholder="Record observations, quotes, follow-ups…" oninput="onNotesChange('${id}')"></textarea>
+      </div>
+    </div>
+  `;
+
+  return card;
+}
+
+// ============================================================
+// INTERACTIONS
+// ============================================================
+function switchSection(sIdx) {
+  document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`section-${sIdx}`).classList.add('active');
+  document.getElementById(`tab-${sIdx}`).classList.add('active');
+  state.activeSection = sIdx;
+  document.getElementById(`tab-${sIdx}`).scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+}
+
+function toggleCard(id) {
+  const lower = document.getElementById(`lower-${id}`);
+  const expand = document.getElementById(`expand-${id}`);
+  const isOpen = lower.classList.contains('open');
+  lower.classList.toggle('open', !isOpen);
+  expand.textContent = isOpen ? '▼' : '▲';
+}
+
+function toggleHints(id, total) {
+  const panel = document.getElementById(`hp-${id}`);
+  const chev = document.getElementById(`hchev-${id}`);
+  const isOpen = panel.classList.contains('open');
+  panel.classList.toggle('open', !isOpen);
+  chev.classList.toggle('open', !isOpen);
+}
+
+function onAskedChange(id, sIdx) {
+  const cb = document.getElementById(`qcb-${id}`);
+  state.asked[id] = cb.checked;
+  const card = document.getElementById(`card-${id}`);
+  card.classList.toggle('asked', cb.checked);
+  updateAllCounters();
+  scheduleAutosave();
+}
+
+function onHintChange(id, hIdx, total) {
+  const key = `${id}_${hIdx}`;
+  const cb = document.getElementById(`hint-${id}-${hIdx}`);
+  state.hints[key] = cb.checked;
+  updateHintBar(id, total);
+  updateScore();
+  scheduleAutosave();
+}
+
+function onNotesChange(id) {
+  const ta = document.getElementById(`notes-${id}`);
+  state.notes[id] = ta.value;
+  scheduleAutosave();
+}
+
+function updateHintBar(id, total) {
+  let count = 0;
+  for (let i = 0; i < total; i++) {
+    if (state.hints[`${id}_${i}`]) count++;
+  }
+  const pct = total > 0 ? (count / total * 100) : 0;
+  document.getElementById(`hmb-${id}`).style.width = pct + '%';
+  document.getElementById(`hmc-${id}`).textContent = `${count}/${total}`;
+}
+
+function updateAllCounters() {
+  let totalAsked = 0;
+  const totalQ = SECTIONS.reduce((s, sec) => s + sec.questions.length, 0);
+
+  SECTIONS.forEach((sec, sIdx) => {
+    let secAsked = 0;
+    sec.questions.forEach((q, qIdx) => {
+      if (state.asked[qid(sIdx, qIdx)]) secAsked++;
+    });
+    totalAsked += secAsked;
+    const counter = document.getElementById(`tab-counter-${sIdx}`);
+    const badge = document.getElementById(`sec-badge-${sIdx}`);
+    const tab = document.getElementById(`tab-${sIdx}`);
+    const done = secAsked === sec.questions.length;
+    counter.textContent = done ? '✓' : `${secAsked}/${sec.questions.length}`;
+    tab.classList.toggle('complete', done);
+    if (badge) badge.textContent = `${secAsked} / ${sec.questions.length} asked`;
+  });
+
+  document.getElementById('globalProgressCount').textContent = `${totalAsked} / ${totalQ}`;
+  document.getElementById('globalProgressBar').style.width = (totalAsked / totalQ * 100) + '%';
+  updateScore();
+}
+
+function updateScore() {
+  let totalHints = 0, coveredHints = 0;
+  SECTIONS.forEach((sec, sIdx) => {
+    sec.questions.forEach((q, qIdx) => {
+      const id = qid(sIdx, qIdx);
+      totalHints += q.hints.length;
+      q.hints.forEach((h, hIdx) => {
+        if (state.hints[`${id}_${hIdx}`]) coveredHints++;
+      });
+    });
+  });
+
+  const pct = totalHints > 0 ? Math.round(coveredHints / totalHints * 100) : 0;
+  const circumference = 2 * Math.PI * 22;
+  const dashoffset = circumference - (pct / 100) * circumference;
+
+  document.getElementById('scorePct').textContent = pct + '%';
+  document.getElementById('scoreSub').textContent = `${coveredHints} / ${totalHints} hints`;
+
+  const ring = document.getElementById('scoreRingFg');
+  const verdict = document.getElementById('scoreVerdict');
+  let colour, verdictText;
+  if (pct < 40) { colour = '#ef4444'; verdictText = 'No Hire'; }
+  else if (pct < 70) { colour = '#f59e0b'; verdictText = 'Can Consider'; }
+  else { colour = '#22c55e'; verdictText = 'Sure Hire ✓'; }
+
+  ring.style.stroke = colour;
+  ring.style.strokeDashoffset = dashoffset;
+  verdict.style.color = colour;
+
+  if (verdictText !== lastVerdict) {
+    verdict.classList.remove('pop');
+    void verdict.offsetWidth;
+    verdict.classList.add('pop');
+    lastVerdict = verdictText;
+  }
+  verdict.textContent = verdictText;
+}
+
+// ============================================================
+// THEME
+// ============================================================
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+}
+
+function initTheme() {
+  const saved = localStorage.getItem('theme');
+  const preferred = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', saved || preferred);
+}
+
+// ============================================================
+// AUTOSAVE
+// ============================================================
+function scheduleAutosave() {
+  const dot = document.getElementById('autosaveDot');
+  dot.classList.add('pulsing');
+  clearTimeout(autosaveTimer);
+  autosaveTimer = setTimeout(() => {
+    doAutosave();
+    dot.classList.remove('pulsing');
+  }, 1500);
+}
+
+function doAutosave() {
+  const data = { state, ts: new Date().toISOString(), name: '__autosave__' };
+  localStorage.setItem('resilience_autosave', JSON.stringify(data));
+  const pill = document.getElementById('saveStatusPill');
+  pill.textContent = 'Auto-saved';
+  pill.classList.add('show');
+  setTimeout(() => pill.classList.remove('show'), 2500);
+}
+
+function loadAutosave() {
+  const raw = localStorage.getItem('resilience_autosave');
+  if (raw) {
+    try {
+      const data = JSON.parse(raw);
+      applyState(data.state);
+    } catch(e) {}
+  }
+}
+
+// ============================================================
+// STATE APPLY
+// ============================================================
+function applyState(s) {
+  state.asked = s.asked || {};
+  state.hints = s.hints || {};
+  state.notes = s.notes || {};
+
+  SECTIONS.forEach((sec, sIdx) => {
+    sec.questions.forEach((q, qIdx) => {
+      const id = qid(sIdx, qIdx);
+      const cbEl = document.getElementById(`qcb-${id}`);
+      if (cbEl) {
+        cbEl.checked = !!state.asked[id];
+        document.getElementById(`card-${id}`).classList.toggle('asked', !!state.asked[id]);
+      }
+      q.hints.forEach((h, hIdx) => {
+        const hEl = document.getElementById(`hint-${id}-${hIdx}`);
+        if (hEl) hEl.checked = !!state.hints[`${id}_${hIdx}`];
+      });
+      updateHintBar(id, q.hints.length);
+      const notesEl = document.getElementById(`notes-${id}`);
+      if (notesEl) notesEl.value = state.notes[id] || '';
+    });
+  });
+  updateAllCounters();
+}
+
+// ============================================================
+// NAMED SESSIONS
+// ============================================================
+function getSessions() {
+  try { return JSON.parse(localStorage.getItem('resilience_sessions') || '[]'); } catch(e) { return []; }
+}
+function setSessions(sessions) {
+  localStorage.setItem('resilience_sessions', JSON.stringify(sessions));
+}
+
+function openModal(id) {
+  if (id === 'saveModal') populateSaveModal();
+  if (id === 'loadModal') populateLoadModal();
+  document.getElementById(id).classList.add('open');
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+document.querySelectorAll('.modal-backdrop').forEach(m => {
+  m.addEventListener('click', e => { if (e.target === m) m.classList.remove('open'); });
+});
+
+function populateSaveModal() {
+  const sessions = getSessions();
+  const list = document.getElementById('saveSessionList');
+  list.innerHTML = '';
+  if (sessions.length === 0) {
+    document.getElementById('existingSessionsWrap').style.display = 'none';
+    return;
+  }
+  document.getElementById('existingSessionsWrap').style.display = '';
+  sessions.forEach((s, i) => {
+    const item = document.createElement('div');
+    item.className = 'session-item';
+    item.innerHTML = `
+      <div class="session-item-info" onclick="prefillSaveName('${s.name.replace(/'/g,"\\'")}')">
+        <div class="session-item-name">${s.name}</div>
+        <div class="session-item-ts">${new Date(s.ts).toLocaleString()}</div>
+      </div>
+      <button class="session-del-btn" onclick="deleteSession(${i})">✕</button>
+    `;
+    list.appendChild(item);
+  });
+}
+
+function prefillSaveName(name) {
+  document.getElementById('saveNameInput').value = name;
+}
+
+function saveNamedSession() {
+  const name = document.getElementById('saveNameInput').value.trim();
+  if (!name) { alert('Please enter a session name.'); return; }
+  const sessions = getSessions();
+  const existing = sessions.findIndex(s => s.name === name);
+  const entry = { name, state: JSON.parse(JSON.stringify(state)), ts: new Date().toISOString() };
+  if (existing >= 0) sessions[existing] = entry;
+  else sessions.push(entry);
+  setSessions(sessions);
+  const pill = document.getElementById('saveStatusPill');
+  pill.textContent = `Saved: ${name}`;
+  pill.classList.add('show');
+  setTimeout(() => pill.classList.remove('show'), 3000);
+  closeModal('saveModal');
+}
+
+function deleteSession(i) {
+  const sessions = getSessions();
+  sessions.splice(i, 1);
+  setSessions(sessions);
+  populateSaveModal();
+}
+
+function populateLoadModal() {
+  const sessions = getSessions();
+  const list = document.getElementById('loadSessionList');
+  list.innerHTML = '';
+
+  const autosave = localStorage.getItem('resilience_autosave');
+  if (autosave) {
+    const as = JSON.parse(autosave);
+    const item = createSessionLoadItem('⚡ Auto-save', as.ts, () => { applyState(as.state); closeModal('loadModal'); });
+    list.appendChild(item);
+  }
+
+  if (sessions.length === 0 && !autosave) {
+    list.innerHTML = '<div style="color:var(--text3);font-size:0.82rem;padding:8px 0">No saved sessions found.</div>';
+    return;
+  }
+  sessions.forEach(s => {
+    const item = createSessionLoadItem(s.name, s.ts, () => { applyState(s.state); closeModal('loadModal'); });
+    list.appendChild(item);
+  });
+}
+
+function createSessionLoadItem(name, ts, onClick) {
+  const item = document.createElement('div');
+  item.className = 'session-item';
+  item.innerHTML = `
+    <div class="session-item-info">
+      <div class="session-item-name">${name}</div>
+      <div class="session-item-ts">${new Date(ts).toLocaleString()}</div>
+    </div>
+    <span style="color:var(--text3);font-size:0.75rem">Load →</span>
+  `;
+  item.onclick = onClick;
+  return item;
+}
+
+function importSession(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (data.state) { applyState(data.state); closeModal('loadModal'); }
+      else { alert('Invalid session file.'); }
+    } catch(err) { alert('Could not parse JSON file.'); }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+// ============================================================
+// EXPORT
+// ============================================================
+function getVerdict(pct) {
+  if (pct < 40) return 'No Hire';
+  if (pct < 70) return 'Can Consider';
+  return 'Sure Hire ✓';
+}
+
+function exportTxt() {
+  const sessionName = (() => {
+    const raw = localStorage.getItem('resilience_autosave');
+    if (raw) { try { const d = JSON.parse(raw); return d.name || 'Untitled Session'; } catch(e){} }
+    return 'Untitled Session';
+  })();
+
+  let totalHints = 0, coveredHints = 0;
+  SECTIONS.forEach((sec, sIdx) => {
+    sec.questions.forEach((q, qIdx) => {
+      const id = qid(sIdx, qIdx);
+      totalHints += q.hints.length;
+      q.hints.forEach((h, hIdx) => { if (state.hints[`${id}_${hIdx}`]) coveredHints++; });
+    });
+  });
+  const pct = totalHints > 0 ? Math.round(coveredHints / totalHints * 100) : 0;
+  const verdict = getVerdict(pct);
+
+  let lines = [];
+  lines.push('═══════════════════════════════════════════════════════════════');
+  lines.push('  RESILIENCE TEST ENGINEER — INTERVIEW EXPORT');
+  lines.push('═══════════════════════════════════════════════════════════════');
+  lines.push(`  Session : ${sessionName}`);
+  lines.push(`  Exported: ${new Date().toLocaleString()}`);
+  lines.push(`  Score   : ${pct}% (${coveredHints}/${totalHints} hints covered)`);
+  lines.push(`  Verdict : ${verdict}`);
+  lines.push('═══════════════════════════════════════════════════════════════\n');
+
+  SECTIONS.forEach((sec, sIdx) => {
+    lines.push(`\n▌ AREA ${sIdx + 1}: ${sec.title.toUpperCase()}`);
+    lines.push('─'.repeat(60));
+    sec.questions.forEach((q, qIdx) => {
+      const id = qid(sIdx, qIdx);
+      const asked = state.asked[id] ? '[ASKED]' : '[SKIP ]';
+      lines.push(`\n  ${asked} Q${qIdx + 1}. [${q.type.toUpperCase()}] ${q.text}`);
+      lines.push(`         Topic: ${q.topic}`);
+      lines.push('         Hints:');
+      q.hints.forEach((hint, hIdx) => {
+        const covered = state.hints[`${id}_${hIdx}`] ? '✓' : '○';
+        const clean = hint.replace(/<[^>]+>/g, '');
+        lines.push(`           ${covered} ${clean}`);
+      });
+      const notes = state.notes[id];
+      if (notes && notes.trim()) {
+        lines.push('         Notes:');
+        notes.split('\n').forEach(l => lines.push(`           ${l}`));
+      }
+    });
+  });
+
+  lines.push('\n═══════════════════════════════════════════════════════════════');
+  lines.push(`  FINAL SCORE: ${pct}% — ${verdict}`);
+  lines.push('═══════════════════════════════════════════════════════════════\n');
+
+  const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `resilience-interview-${new Date().toISOString().slice(0,10)}.txt`;
+  a.click();
+}
+
+// ============================================================
+// INIT
+// ============================================================
+window.addEventListener('DOMContentLoaded', () => {
+  initTheme();
+  buildUI();
+  loadAutosave();
+  switchSection(0);
+
+  // set header height for tab sticky offset
+  const header = document.getElementById('appHeader');
+  const tabs = document.getElementById('tabsOuter');
+  const obs = new ResizeObserver(() => {
+    tabs.style.top = header.offsetHeight + 'px';
+  });
+  obs.observe(header);
+});
+</script>
+</body>
+</html>
